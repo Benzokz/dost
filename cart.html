@@ -13,7 +13,7 @@
             --card-bg: #ffffff;
             --text-main: #1e272e;
             --text-gray: #7f8c8d;
-            --shadow: rgba(0, 0, 0, 0.08);
+            --shadow: rgba(0, 0, 0, 0.05);
         }
 
         [data-theme="dark"] {
@@ -21,163 +21,166 @@
             --card-bg: #1e1e1e;
             --text-main: #ffffff;
             --text-gray: #a0a0a0;
-            --shadow: rgba(0, 0, 0, 0.4);
+            --shadow: rgba(0, 0, 0, 0.3);
         }
 
         body {
             margin: 0; font-family: 'Inter', sans-serif;
             background: var(--bg); color: var(--text-main);
             display: flex; flex-direction: column; align-items: center; min-height: 100vh;
-            padding-bottom: 120px;
         }
 
         header {
             width: 100%; max-width: 500px; padding: 40px 20px;
             background: var(--primary-grad); color: white; text-align: center;
-            border-bottom-left-radius: 35px; border-bottom-right-radius: 35px;
+            border-bottom-left-radius: 40px; border-bottom-right-radius: 40px;
+            box-shadow: 0 10px 30px rgba(0, 200, 83, 0.2);
         }
 
-        .container { width: 100%; max-width: 500px; padding: 20px; }
+        .container { width: 100%; max-width: 500px; padding: 20px; flex-grow: 1; }
 
-        /* СПИСОК ТОВАРОВ */
+        /* КАРТОЧКА ТОВАРА В КОРЗИНЕ */
         .cart-item {
-            background: var(--card-bg); border-radius: 20px; padding: 15px;
-            display: flex; align-items: center; justify-content: space-between;
-            margin-bottom: 12px; box-shadow: 0 8px 20px var(--shadow);
+            background: var(--card-bg);
+            border-radius: 25px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            box-shadow: 0 10px 25px var(--shadow);
+            animation: fadeIn 0.4s ease;
         }
 
-        .item-info { flex-grow: 1; }
-        .item-name { font-weight: 700; font-size: 16px; margin: 0; }
-        .item-price { color: var(--primary); font-weight: 800; font-size: 14px; margin: 4px 0 0 0; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .remove-btn {
-            background: #ff525215; color: #ff5252; border: none;
-            width: 35px; height: 35px; border-radius: 12px;
-            font-size: 18px; cursor: pointer; font-weight: bold;
+        .item-info h3 { margin: 0; font-size: 18px; font-weight: 800; }
+        .item-info p { margin: 5px 0 0 0; color: var(--primary); font-weight: 700; }
+
+        .btn-remove {
+            background: #ffeded; color: #ff5252; border: none;
+            width: 40px; height: 40px; border-radius: 15px;
+            font-size: 20px; cursor: pointer; font-weight: 800;
         }
 
         /* ПУСТАЯ КОРЗИНА */
-        #empty-msg { text-align: center; padding: 50px 20px; color: var(--text-gray); }
+        .empty-state { text-align: center; padding: 60px 20px; }
+        .empty-state h1 { font-size: 60px; margin: 0; }
 
-        /* ПАНЕЛЬ ИТОГО */
-        .bottom-panel {
+        /* ФИКСИРОВАННЫЙ ПОДВАЛ */
+        .footer-order {
             position: fixed; bottom: 0; width: 100%; max-width: 500px;
             background: var(--card-bg); padding: 25px;
-            border-top-left-radius: 30px; border-top-right-radius: 30px;
-            box-shadow: 0 -10px 30px var(--shadow);
+            border-top-left-radius: 35px; border-top-right-radius: 35px;
+            box-shadow: 0 -10px 40px var(--shadow);
             z-index: 100;
         }
 
-        .total-row { display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 20px; font-weight: 800; }
+        .total-box { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .total-box span { font-size: 16px; color: var(--text-gray); font-weight: 600; }
+        .total-box b { font-size: 24px; font-weight: 800; color: var(--text-main); }
 
-        .btn-order {
-            width: 100%; padding: 20px; border-radius: 20px; border: none;
+        .btn-confirm {
+            width: 100%; padding: 22px; border-radius: 22px; border: none;
             background: var(--primary-grad); color: white;
             font-size: 18px; font-weight: 800; cursor: pointer;
             box-shadow: 0 10px 25px rgba(0, 200, 83, 0.3);
         }
 
-        .btn-order:active { transform: scale(0.96); }
+        .btn-confirm:active { transform: scale(0.96); }
 
-        .back-link { color: white; text-decoration: none; font-size: 14px; margin-top: 10px; display: inline-block; opacity: 0.8; }
+        .back-btn { color: white; text-decoration: none; font-weight: 600; opacity: 0.8; font-size: 14px; margin-top: 10px; display: inline-block; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1 style="margin:0;">Мой заказ 🛒</h1>
-    <a href="catalog/index.html" class="back-link">← Вернуться в каталог</a>
+    <h1 style="margin:0;">Корзина 🛒</h1>
+    <a href="javascript:history.back()" class="back-btn">← Вернуться назад</a>
 </header>
 
-<div class="container" id="cart-list">
+<div class="container" id="cart-content">
     </div>
 
-<div id="empty-msg" style="display:none;">
-    <h2 style="font-size: 40px;">🧺</h2>
-    <h3>Корзина пуста</h3>
-    <p>Добавьте что-нибудь из каталога</p>
-</div>
-
-<div class="bottom-panel" id="bottom-panel">
-    <div class="total-row">
-        <span>Итого:</span>
-        <span id="total-sum">0 ₸</span>
+<div class="footer-order" id="order-panel" style="display: none;">
+    <div class="total-box">
+        <span>К оплате:</span>
+        <b id="final-price">0 ₸</b>
     </div>
-    <button class="btn-order" onclick="sendOrder()">Заказать через WhatsApp</button>
+    <button class="btn-confirm" onclick="sendToWhatsApp()">Оформить заказ в WhatsApp</button>
 </div>
 
 <script>
-    // 1. Загрузка корзины
+    // Загружаем товары из памяти
     let cart = JSON.parse(localStorage.getItem('pvl_cart')) || [];
 
-    function renderCart() {
-        const list = document.getElementById('cart-list');
-        const emptyMsg = document.getElementById('empty-msg');
-        const panel = document.getElementById('bottom-panel');
-        const totalSum = document.getElementById('total-sum');
+    function displayItems() {
+        const container = document.getElementById('cart-content');
+        const panel = document.getElementById('order-panel');
+        const finalPrice = document.getElementById('final-price');
 
-        list.innerHTML = '';
-        
         if (cart.length === 0) {
-            emptyMsg.style.display = 'block';
+            container.innerHTML = `
+                <div class="empty-state">
+                    <h1>🧺</h1>
+                    <h2>Ваша корзина пуста</h2>
+                    <p style="color:gray">Добавьте товары из каталога,<br>чтобы сделать заказ.</p>
+                </div>`;
             panel.style.display = 'none';
             return;
         }
 
-        emptyMsg.style.display = 'none';
         panel.style.display = 'block';
+        container.innerHTML = '';
+        let total = 0;
 
-        let sum = 0;
         cart.forEach((item, index) => {
-            sum += item.price;
-            list.innerHTML += `
+            total += item.price;
+            container.innerHTML += `
                 <div class="cart-item">
                     <div class="item-info">
-                        <p class="item-name">${item.name}</p>
-                        <p class="item-price">${item.price} ₸</p>
+                        <h3>${item.name}</h3>
+                        <p>${item.price} ₸</p>
                     </div>
-                    <button class="remove-btn" onclick="removeItem(${index})">×</button>
+                    <button class="btn-remove" onclick="deleteItem(${index})">×</button>
                 </div>
             `;
         });
 
-        totalSum.innerText = sum + ' ₸';
+        finalPrice.innerText = total + ' ₸';
     }
 
-    // 2. Удаление товара
-    function removeItem(index) {
-        if (navigator.vibrate) navigator.vibrate(20);
-        cart.splice(index, 1);
-        localStorage.setItem('pvl_cart', JSON.stringify(cart));
-        renderCart();
+    function deleteItem(index) {
+        cart.splice(index, 1); // Удаляем
+        localStorage.setItem('pvl_cart', JSON.stringify(cart)); // Сохраняем
+        displayItems(); // Обновляем экран
     }
 
-    // 3. Отправка в WhatsApp
-    function sendOrder() {
+    function sendToWhatsApp() {
         const phone = "77716093547";
-        let message = "🚀 *Новый заказ в Pavlodar24*\n\n";
+        let text = "🚀 *НОВЫЙ ЗАКАЗ (Pavlodar24)*\n\n";
         
         let sum = 0;
         cart.forEach((item, i) => {
-            message += `${i+1}. ${item.name} — ${item.price} ₸\n`;
+            text += `${i + 1}. *${item.name}* — ${item.price} ₸\n`;
             sum += item.price;
         });
 
-        message += `\n💰 *Итого: ${sum} ₸*\n\n📍 Жду звонка для уточнения адреса!`;
+        text += `\n💰 *ИТОГО: ${sum} ₸*\n\n📍 Жду подтверждения!`;
         
-        const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-        window.open(url, '_blank');
+        window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
         
-        // Очищаем корзину после заказа (по желанию)
+        // По желанию: очистить корзину после нажатия кнопки
         // localStorage.removeItem('pvl_cart');
     }
 
-    // Тема
+    // Темная тема
     if (localStorage.getItem('pavlodar-theme') === 'dark') {
         document.documentElement.setAttribute('data-theme', 'dark');
     }
 
-    window.onload = renderCart;
+    // Запуск при открытии
+    window.onload = displayItems;
 </script>
 
 </body>
