@@ -60,7 +60,6 @@ body {
 
 .theme-toggle:active { transform: scale(0.85); }
 
-/* Стили иконок внутри кнопки */
 .theme-toggle svg {
   width: 22px;
   height: 22px;
@@ -72,7 +71,6 @@ body {
   transition: 0.3s;
 }
 
-/* Header */
 header {
   width:100%;
   max-width:500px;
@@ -94,7 +92,6 @@ header {
   color: var(--header-text);
 }
 
-/* Контент */
 .main-container {
   width:100%;
   max-width:500px;
@@ -115,7 +112,6 @@ header {
 .box h2 { margin:0 0 10px; font-size:22px; font-weight:800; }
 .box p { margin:0 0 20px; color:var(--text-gray); }
 
-/* Кнопки */
 button {
   width:100%;
   padding:16px;
@@ -138,7 +134,6 @@ button:active { transform:scale(0.96); }
 .catalog { background: var(--text-main); color: var(--card-bg); }
 .rules { background: transparent; border:2px solid var(--text-main); color: var(--text-main); opacity:0.8; }
 
-/* Соцсети */
 .social-box {
   background: var(--card-bg);
   padding:25px;
@@ -177,4 +172,78 @@ footer {
 
 <div class="theme-toggle" onclick="toggleTheme()">
   <svg id="moon-icon" viewBox="0 0 24 24" style="display: block;">
-    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+  </svg>
+  <svg id="sun-icon" viewBox="0 0 24 24" style="display: none;">
+    <circle cx="12" cy="12" r="5"></circle>
+    <line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line>
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+    <line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line>
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+  </svg>
+</div>
+
+<header>
+  <div class="header-text">Доставка 24/7 Павлодар</div>
+</header>
+
+<div class="main-container">
+  <div class="box">
+    <h2>Заказывай доставку за 2 минуты</h2>
+    <p>Продукты • Еда • Напитки • Аптека</p>
+    <button class="whatsapp" onclick="window.open('https://wa.me/77716093547','_blank')">Написать в WhatsApp</button>
+    <button class="catalog" onclick="location.href='catalog/index.html'">Открыть каталог</button>
+    <button class="rules" onclick="location.href='rules/index.html'">Правила сервиса</button>
+  </div>
+
+  <div class="social-box">
+    <h3>Мы онлайн 24/7</h3>
+    <div class="icon-wrapper">
+      <a href="https://instagram.com/dostavka.pavlodar" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
+      </a>
+      <a href="https://wa.me/77716093547" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>© 2026 DOSTAVKA PAVLODAR24 🚀</footer>
+
+<script>
+function updateIcons(isDark) {
+  const sun = document.getElementById('sun-icon');
+  const moon = document.getElementById('moon-icon');
+  if (isDark) {
+    sun.style.display = 'block';
+    moon.style.display = 'none';
+  } else {
+    sun.style.display = 'none';
+    moon.style.display = 'block';
+  }
+}
+
+function toggleTheme() {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  
+  if (isDark) {
+    html.removeAttribute('data-theme');
+    localStorage.setItem('pavlodar-theme', 'light');
+    updateIcons(false);
+  } else {
+    html.setAttribute('data-theme', 'dark');
+    localStorage.setItem('pavlodar-theme', 'dark');
+    updateIcons(true);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const isDark = localStorage.getItem('pavlodar-theme') === 'dark';
+  updateIcons(isDark);
+});
+</script>
+
+</body>
+</html>
