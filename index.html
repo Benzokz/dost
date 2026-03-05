@@ -1,40 +1,118 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Доставка 24/7 Павлодар</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Доставка 24/7 Павлодар</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
-  <style>
-    /* Переменные темы */
-    :root {
-      --primary: #00c853;
-      --bg: #f8f9fa;
-      --text-main: #1e272e;
-      --text-secondary: #7f8c8d;
-      --card-bg: #ffffff;
-      --card-radius: 28px;
-      --shadow: rgba(0, 0, 0, 0.05);
-      --btn-rules: #f1f2f6;
-    }
+    <style>
+        /* БАЗОВЫЕ ПЕРЕМЕННЫЕ */
+        :root {
+            --primary: #00c853;
+            --primary-grad: linear-gradient(135deg, #00c853, #00e676);
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-main: #1e272e;
+            --text-gray: #7f8c8d;
+            --shadow: rgba(0, 0, 0, 0.08);
+            --blur-bg: rgba(255, 255, 255, 0.7);
+        }
 
-    [data-theme="dark"] {
-      --bg: #121212;
-      --text-main: #ffffff;
-      --text-secondary: #a0a0a0;
-      --card-bg: #1e1e1e;
-      --shadow: rgba(0, 0, 0, 0.4);
-      --btn-rules: #2c2c2e;
-    }
+        /* ПЕРЕМЕННЫЕ ТЕМНОЙ ТЕМЫ */
+        [data-theme="dark"] {
+            --bg: #0f0f0f;
+            --card-bg: #1a1a1a;
+            --text-main: #ffffff;
+            --text-gray: #a0a0a0;
+            --shadow: rgba(0, 0, 0, 0.5);
+            --blur-bg: rgba(26, 26, 26, 0.8);
+        }
 
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; transition: 0.3s; }
+        * { 
+            box-sizing: border-box; 
+            -webkit-tap-highlight-color: transparent; 
+            transition: background 0.4s ease, color 0.4s ease, transform 0.2s ease;
+        }
 
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ПРЕЛЛОАДЕР (ВАУ-ЭФФЕКТ) */
+        #loader {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--primary-grad);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 9999;
+            transition: opacity 0.6s ease, visibility 0.6s;
+        }
+        .loader-content { color: white; text-align: center; }
+        .loader-rocket { font-size: 50px; animation: pulse 1.5s infinite; display: block; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+
+        /* КНОПКА ТЕМЫ */
+        .theme-switch {
+            position: fixed; top: 20px; right: 20px; z-index: 1000;
+            background: var(--blur-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            width: 45px; height: 45px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; box-shadow: 0 4px 15px var(--shadow);
+        }
+
+        header {
+            width: 100%; max-width: 500px; padding: 70px 20px;
+            text-align: center; background: var(--primary-grad); color: white;
+            font-size: 32px; font-weight: 800; border-bottom-left-radius: 45px;
+            border-bottom-right-radius: 45px; box-shadow: 0 10px 30px rgba(0, 200, 83, 0.3);
+            letter-spacing: -1px;
+        }
+
+        .main-container { width: 100%; max-width: 500px; padding: 20px; margin-top: -45px; }
+
+        .card {
+            background: var(--card-bg); padding: 35px 25px; border-radius: 35px;
+            box-shadow: 0 20px 45px var(--shadow);
+            opacity: 0; transform: translateY(30px);
+            animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        h2 { font-weight: 800; font-size: 24px; margin: 0 0 10px 0; }
+        p { color: var(--text-gray); margin-bottom: 30px; line-height: 1.5; }
+
+        /* КНОПКИ */
+        button {
+            width: 100%; padding: 20px; font-size: 17px; font-weight: 700;
+            margin-bottom: 15px; border: none; border-radius: 22px;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px;
+        }
+
+        .btn-wa { background: var(--primary-grad); color: white; box-shadow: 0 10px 20px rgba(0, 200, 83, 0.2); }
+        .btn-cat { background: var(--text-main); color: var(--card-bg); }
+        .btn-rules { background: transparent; border: 2px solid var(--text-main); color: var(--text-main); opacity: 0.7; }
+
+        button:active { transform: scale(0.96); }
+
+        /* СОЦСЕТИ */
+        .social-box {
+            margin-top: 25px; background: var(--card-bg); padding: 25px;
+            border-radius: 35px; box-shadow: 0 10px 30px var(--shadow);
+            text-align: center; opacity: 0; transform: translateY(30px);
+            animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s forwards;
+        }
+
+        .icons { display: flex; justify-content: center; gap: 35px; margin-top: 15px; }      background: var(--bg);
       color: var(--text-main);
       display: flex;
       flex-direction: column;
