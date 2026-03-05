@@ -130,6 +130,67 @@
     }
     window.onload = checkCart;
 </script>
+    <div id="cart-panel" class="cart-floating-panel" onclick="location.href='../cart.html'">
+    <div style="display: flex; flex-direction: column;">
+        <span style="font-size: 11px; opacity: 0.8; text-transform: uppercase; letter-spacing: 0.5px;">Ваш заказ:</span>
+        <span style="font-size: 17px;">🛒 <b id="cart-count">0</b> товаров</span>
+    </div>
+    <span class="edit-btn">Изменить →</span>
+</div>
+
+<style>
+  .cart-floating-panel {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 440px;
+    background: #1e272e; /* Темный стильный цвет */
+    color: white;
+    padding: 15px 20px;
+    border-radius: 22px;
+    display: none; /* Скрыто по умолчанию, пока корзина пуста */
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    z-index: 1000;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .cart-floating-panel:active { transform: translateX(-50%) scale(0.95); }
+
+  .edit-btn {
+    background: var(--primary, #00c853);
+    padding: 10px 18px;
+    border-radius: 14px;
+    font-weight: 800;
+    font-size: 14px;
+    box-shadow: 0 5px 15px rgba(0, 200, 83, 0.3);
+  }
+</style>
+
+<script>
+function updateCartStatus() {
+    // Проверяем, что в памяти
+    const cart = JSON.parse(localStorage.getItem('pvl_cart')) || [];
+    const panel = document.getElementById('cart-panel');
+    const count = document.getElementById('cart-count');
+    
+    if (cart.length > 0) {
+        panel.style.display = 'flex'; // Показываем, если есть товары
+        count.innerText = cart.length;
+    } else {
+        panel.style.display = 'none'; // Скрываем, если пусто
+    }
+}
+
+// Вызываем функцию при загрузке страницы
+window.onload = updateCartStatus;
+// И на случай, если пользователь вернулся кнопкой "Назад"
+window.onpageshow = updateCartStatus; 
+</script>
 
 </body>
 </html>
