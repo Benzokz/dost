@@ -51,93 +51,30 @@ body {
 }
 
 /* Хедер */
-header {
-  width:100%;
-  max-width:500px;
-  padding:50px 20px;
-  text-align:center;
-  background: var(--primary);
-  color:white;
-  font-size:28px;
-  font-weight:800;
-  border-bottom-left-radius:40px;
-  border-bottom-right-radius:40px;
-}
-.rocket { display:inline-block; animation: rocketMove 2s infinite ease-in-out; }
-@keyframes rocketMove { 0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);} }
-
-/* Контент */
-.main-container {
-  width:100%;
-  max-width:500px;
-  padding:20px;
-  margin-top:-35px;
-}
-.box {
-  background: var(--card-bg);
-  padding:30px 25px;
-  border-radius:25px;
-  box-shadow:0 15px 35px var(--shadow);
-  margin-bottom:20px;
-  text-align:center;
-}
-.box h2 { margin:0 0 10px; font-size:22px; font-weight:800; }
-.box p { margin:0 0 20px; color:var(--text-gray); }
-
-/* Кнопки */
-button {
-  width:100%;
-  padding:16px;
-  font-size:16px;
-  font-weight:600;
-  margin-bottom:12px;
-  border:none;
-  border-radius:22px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:10px;
-  cursor:pointer;
-  transition: transform 0.1s ease;
-}
-button:active { transform:scale(0.96); }
-.whatsapp { background:var(--primary); color:white; }
-.catalog { background:var(--text-main); color:var(--card-bg); }
-.rules { background:transparent; border:2px solid var(--text-main); color:var(--text-main); opacity:0.8; }
-
-/* Соцсети */
-.social-box {
-  background:var(--card-bg);
-  padding:25px;
-  border-radius:25px;
-  box-shadow:0 10px 30px var(--shadow);
-  text-align:center;
-}
-.icon-wrapper {
-  display:flex;
-  justify-content:center;
-  gap:25px;
-  margin-top:15px;
-}
-.icon-wrapper img { width:48px; }
-
-/* Футер */
-footer {
-  padding:30px;
-  text-align:center;
-  font-size:13px;
-  color:var(--text-gray);
-}
-</style>
-</head>
-<body>
-
-<div class="theme-toggle" onclick="toggleTheme()">
-  <span id="theme-icon">🌙</span>
-</div>
-
 <header>
-  Pavlodar24 <span class="rocket">🚀</span>
+  <div class="batman-light">
+    <svg viewBox="0 0 200 100" class="bat-mask">
+      <defs>
+        <radialGradient id="batLight" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="yellow" stop-opacity="0.8" />
+          <stop offset="100%" stop-color="yellow" stop-opacity="0" />
+        </radialGradient>
+        <mask id="batMask">
+          <rect width="100%" height="100%" fill="white"/>
+          <!-- Силуэт летучей мыши -->
+          <path fill="black" d="M100,20 
+             C90,10 70,10 60,20 
+             C50,10 30,10 20,20 
+             C20,40 50,60 100,20 
+             C150,60 180,40 180,20 
+             C170,10 150,10 140,20 
+             C130,10 110,10 100,20 Z"/>
+        </mask>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#batLight)" mask="url(#batMask)"/>
+    </svg>
+    <span class="header-text">Доставка 24/7 Павлодар</span>
+  </div>
 </header>
 
 <div class="main-container">
