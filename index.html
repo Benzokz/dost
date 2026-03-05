@@ -3,38 +3,256 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Доставка 24/7 Павлодар</title>
+    <title>Pavlodar24 | Доставка</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
     <style>
-        /* БАЗОВЫЕ ПЕРЕМЕННЫЕ */
+        /* ПЕРЕМЕННЫЕ ЦВЕТОВ */
         :root {
             --primary: #00c853;
             --primary-grad: linear-gradient(135deg, #00c853, #00e676);
-            --bg: #f8f9fa;
+            --bg: #f0f2f5;
             --card-bg: #ffffff;
             --text-main: #1e272e;
             --text-gray: #7f8c8d;
             --shadow: rgba(0, 0, 0, 0.08);
-            --blur-bg: rgba(255, 255, 255, 0.7);
+            --glass: rgba(255, 255, 255, 0.2);
         }
 
-        /* ПЕРЕМЕННЫЕ ТЕМНОЙ ТЕМЫ */
         [data-theme="dark"] {
-            --bg: #0f0f0f;
-            --card-bg: #1a1a1a;
+            --bg: #121212;
+            --card-bg: #1e1e1e;
             --text-main: #ffffff;
             --text-gray: #a0a0a0;
-            --shadow: rgba(0, 0, 0, 0.5);
-            --blur-bg: rgba(26, 26, 26, 0.8);
+            --shadow: rgba(0, 0, 0, 0.4);
+            --glass: rgba(0, 0, 0, 0.3);
         }
 
         * { 
             box-sizing: border-box; 
-            -webkit-tap-highlight-color: transparent; 
-            transition: background 0.4s ease, color 0.4s ease, transform 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
         }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            transition: background 0.4s ease;
+        }
+
+        /* ПРЕЛЛОАДЕР */
+        #loader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--primary-grad);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 10000; color: white; transition: opacity 0.5s ease, visibility 0.5s;
+        }
+
+        /* ИЗЯЩНАЯ КНОПКА ТЕМЫ */
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            font-size: 18px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* ШАПКА */
+        header {
+            width: 100%;
+            max-width: 500px;
+            padding: 60px 20px 80px 20px;
+            background: var(--primary-grad);
+            color: white;
+            text-align: center;
+            border-bottom-left-radius: 45px;
+            border-bottom-right-radius: 45px;
+            position: relative;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        /* КОНТЕНТНАЯ ЧАСТЬ */
+        .main-content {
+            width: 100%;
+            max-width: 500px;
+            padding: 0 20px;
+            margin-top: -40px; /* Эффект наплыва на хедер */
+            z-index: 10;
+        }
+
+        .main-card {
+            background: var(--card-bg);
+            padding: 35px 25px;
+            border-radius: 35px;
+            box-shadow: 0 15px 40px var(--shadow);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideIn 0.7s ease forwards;
+            transition: background 0.4s ease;
+        }
+
+        @keyframes slideIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 { font-size: 24px; font-weight: 800; margin: 0 0 10px 0; line-height: 1.2; }
+        .subtitle { color: var(--text-gray); font-size: 16px; margin-bottom: 30px; }
+
+        /* КНОПКИ */
+        .btn {
+            width: 100%;
+            padding: 18px;
+            border-radius: 22px;
+            border: none;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary { 
+            background: var(--primary-grad); 
+            color: white; 
+            box-shadow: 0 8px 20px rgba(0, 200, 83, 0.2);
+        }
+
+        .btn-black { 
+            background: var(--text-main); 
+            color: var(--card-bg); 
+            box-shadow: 0 8px 20px var(--shadow);
+        }
+
+        .btn-ghost { 
+            background: rgba(127, 140, 141, 0.1); 
+            color: var(--text-main); 
+        }
+
+        .btn:active { transform: scale(0.96); opacity: 0.9; }
+
+        /* СОЦСЕТИ */
+        .social-section {
+            background: var(--card-bg);
+            margin-top: 20px;
+            padding: 25px;
+            border-radius: 35px;
+            box-shadow: 0 10px 30px var(--shadow);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideIn 0.7s ease 0.2s forwards;
+            transition: background 0.4s ease;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .social-icons img {
+            width: 48px;
+            transition: transform 0.3s ease;
+        }
+
+        .social-icons a:active img { transform: scale(1.2); }
+
+        footer {
+            padding: 40px;
+            color: var(--text-gray);
+            font-size: 13px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        .rocket { display: inline-block; animation: rocketFly 2.5s infinite ease-in-out; }
+        @keyframes rocketFly {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+    </style>
+</head>
+<body>
+
+<div id="loader">
+    <span style="font-size: 60px;">🚀</span>
+    <h2 style="color: white; margin-top: 20px; letter-spacing: 3px;">PAVLODAR24</h2>
+</div>
+
+<header>
+    <div class="theme-toggle" onclick="toggleTheme()">
+        <span id="theme-icon">🌙</span>
+    </div>
+    <h1>Pavlodar24 <span class="rocket">🚀</span></h1>
+</header>
+
+<div class="main-content">
+    <div class="main-card">
+        <h2>Доставка за 2 минуты</h2>
+        <p class="subtitle">Еда • Напитки • Продукты • 24/7</p>
+
+        <button class="btn btn-primary" onclick="vibrateLink('https://wa.me/77716093547')">
+            <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="20" style="filter: brightness(0) invert(1);">
+            Написать в WhatsApp
+        </button>
+
+        <button class="btn btn-black" onclick="vibrateLink('catalog/index.html', false)">
+            📦 Открыть каталог
+        </button>
+
+        <button class="btn btn-ghost" onclick="vibrateLink('rules/index.html', false)">
+            📋 Правила сервиса
+        </button>
+    </div>
+
+    <div class="social-section">
+        <h3 style="margin:0; font-size: 18px; font-weight: 800;">Мы онлайн</h3>
+        <div class="social-icons">
+            <a href="https://instagram.com/dostavka.pavlodar" target="_blank">
+                <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
+            </a>
+            <a href="https://wa.me/77716093547" target="_blank">
+                <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
+            </a>
+        </div>
+    </div>
+</div>
+
+<footer>© 2026 DOSTAVKA PAVLODAR24 🚀</footer>
+
+<script>
+    // 1. Убираем лоадер
+    window.        }
 
         body {
             margin: 0;
