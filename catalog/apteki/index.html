@@ -2,88 +2,137 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Продукты — Pavlodar24</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Аптека — Pavlodar24</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-:root { --primary:#00c853; --card-shadow:0 10px 30px rgba(0,0,0,0.08); }
-body { margin:0; font-family:sans-serif; background:#f0f2f5; }
-.topbar { padding:15px; display:flex; justify-content:space-between; background:#fff; box-shadow:0 2px 10px rgba(0,0,0,0.1); }
-.topbar a { text-decoration:none; color:#00c853; font-weight:700; }
-.container { max-width:500px; margin:20px auto; padding:0 15px; }
-.card { background:#fff; padding:20px; margin-bottom:15px; border-radius:18px; box-shadow:var(--card-shadow); }
-.card h3 { margin:0 0 8px 0; }
-.card p { margin:0 0 12px 0; color:#7f8c8d; }
-.price { color:var(--primary); font-weight:700; }
-.addBtn { width:100%; padding:12px; border:none; border-radius:12px; background:var(--primary); color:#fff; font-weight:700; cursor:pointer; }
-.cart { position:fixed; bottom:0; left:0; right:0; background:#fff; max-height:0; overflow:hidden; transition:0.3s; box-shadow:0 -5px 20px rgba(0,0,0,0.1); border-radius:20px 20px 0 0; padding:0 20px; }
-.cart.active { max-height:300px; padding:20px; }
-.item { display:flex; justify-content:space-between; margin-bottom:12px; }
+:root { 
+    --primary: #00c853; 
+    --bg: #f0f2f5;
+    --card-bg: #ffffff;
+    --text: #1e272e;
+    --card-shadow: 0 10px 30px rgba(0,0,0,0.08); 
+}
+
+/* Поддержка темной темы */
+[data-theme="dark"] {
+    --bg: #121212;
+    --card-bg: #1e1e1e;
+    --text: #ffffff;
+    --card-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+body { margin:0; font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); transition: 0.3s; }
+
+.topbar { 
+    padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;
+    background: var(--card-bg); box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+    position: sticky; top: 0; z-index: 100;
+}
+.topbar a { text-decoration: none; color: var(--primary); font-weight: 700; }
+
+.container { max-width: 500px; margin: 20px auto; padding: 0 15px; padding-bottom: 100px; }
+
+.card { 
+    background: var(--card-bg); padding: 20px; margin-bottom: 15px; 
+    border-radius: 22px; box-shadow: var(--card-shadow); 
+}
+.card h3 { margin: 0 0 8px 0; font-weight: 800; }
+.card p { margin: 0 0 12px 0; color: #7f8c8d; font-size: 14px; }
+
+.price-row { display: flex; justify-content: space-between; align-items: center; }
+.price { color: var(--primary); font-weight: 800; font-size: 18px; }
+
+.addBtn { 
+    padding: 10px 20px; border: none; border-radius: 12px; 
+    background: var(--primary); color: #fff; font-weight: 700; cursor: pointer; 
+}
+.addBtn:active { transform: scale(0.95); }
+
+/* ПЛАВАЮЩАЯ КНОПКА КОРЗИНЫ */
+.cart-float {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+    width: 90%; max-width: 400px; background: #1e272e; color: white;
+    padding: 18px; border-radius: 20px; display: none;
+    justify-content: space-between; align-items: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 1000;
+    text-decoration: none;
+}
 </style>
 </head>
 <body>
 
 <div class="topbar">
-  <a href="../index.html">← Назад</a>
-  <div>Аптеки</div>
-  <div id="count">0</div>
+  <a href="../catalog.html">← Назад</a>
+  <div style="font-weight:800;">Аптека 💊</div>
+  <div id="count-badge" style="background:var(--primary); color:white; padding:2px 8px; border-radius:10px; font-size:12px;">0</div>
 </div>
 
 <div class="container" id="product-list"></div>
 
-<div class="cart" id="cartBar">
-  <h3>Корзина</h3>
-  <div id="cart"></div>
-  <div id="total">Итого: 0 тг</div>
-  <button onclick="sendOrder()">Оформить заказ в WhatsApp</button>
-</div>
+<a href="../../cart.html" class="cart-float" id="cartBar">
+  <span>🛒 В корзине: <b id="float-count">0</b></span>
+  <span style="color:var(--primary); font-weight:800;">Оформить →</span>
+</a>
 
 <script>
+// Твои товары
 const products = [
-  { id:1, name:"Немесил", price:150, desc:"Детский" },
-  { id:2, name:"Памперс", price:250, desc:"1 шт" },
-  { id:3, name:"Гондоны", price:400, desc:"1 шт" }
+  { id: 'apt1', name: "Нимесил", price: 150, desc: "Обезболивающее, 1 пак." },
+  { id: 'apt2', name: "Памперс", price: 250, desc: "Детский, 1 шт." },
+  { id: 'apt3', name: "Презервативы", price: 400, desc: "Contex, 1 шт." },
+  { id: 'apt4', name: "Аспирин", price: 120, desc: "От жара и боли" }
 ];
 
-let cart = {};
-
+// 1. Инициализация списка товаров
 function init() {
   const list = document.getElementById('product-list');
   list.innerHTML = products.map(p => `
     <div class="card">
       <h3>${p.name}</h3>
       <p>${p.desc}</p>
-      <div class="price">${p.price} тг</div>
-      <button class="addBtn" onclick="addToCart(${p.id})">В корзину</button>
+      <div class="price-row">
+        <div class="price">${p.price} ₸</div>
+        <button class="addBtn" onclick="addToCart('${p.id}', '${p.name}', ${p.price})">Добавить</button>
+      </div>
     </div>
   `).join('');
+  updateUI();
 }
 
-function addToCart(id) {
-  const p = products.find(x=>x.id===id);
-  if(cart[id]) cart[id].q++;
-  else cart[id]={...p, q:1};
-  renderCart();
+// 2. ФУНКЦИЯ ДОБАВЛЕНИЯ (теперь сохраняет в общую память)
+function addToCart(id, name, price) {
+  let cart = JSON.parse(localStorage.getItem('pvl_cart')) || [];
+  
+  cart.push({ id, name, price }); // Добавляем товар в массив
+  
+  localStorage.setItem('pvl_cart', JSON.stringify(cart)); // Сохраняем
+  
+  if (navigator.vibrate) navigator.vibrate(40);
+  updateUI();
 }
 
-function renderCart() {
-  const cartDiv = document.getElementById('cart');
-  let html="", total=0, count=0;
-  for(let id in cart){
-    html+=`<div class="item">${cart[id].name} x ${cart[id].q} — ${cart[id].price*cart[id].q} тг</div>`;
-    total+=cart[id].price*cart[id].q;
-    count+=cart[id].q;
+// 3. ОБНОВЛЕНИЕ ИНТЕРФЕЙСА
+function updateUI() {
+  const cart = JSON.parse(localStorage.getItem('pvl_cart')) || [];
+  const countBadge = document.getElementById('count-badge');
+  const cartBar = document.getElementById('cartBar');
+  const floatCount = document.getElementById('float-count');
+
+  countBadge.innerText = cart.length;
+  floatCount.innerText = cart.length;
+
+  // Показываем черную плашку внизу, если в корзине что-то есть
+  if (cart.length > 0) {
+    cartBar.style.display = 'flex';
+  } else {
+    cartBar.style.display = 'none';
   }
-  cartDiv.innerHTML = html || "<div>Корзина пуста</div>";
-  document.getElementById("total").innerText="Итого: "+total+" тг";
-  document.getElementById("count").innerText=count;
-  document.getElementById("cartBar").classList.toggle("active", count>0);
 }
 
-function sendOrder() {
-  if(Object.keys(cart).length===0){ alert("Корзина пуста"); return; }
-  let msg="Новый заказ:\n";
-  for(let id in cart){ msg+=`• ${cart[id].name} — ${cart[id].q} шт.\n`; }
-  window.open(`https://wa.me/77716093547?text=${encodeURIComponent(msg)}`, "_blank");
+// Проверка темной темы
+if (localStorage.getItem('pavlodar-theme') === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
 }
 
 init();
