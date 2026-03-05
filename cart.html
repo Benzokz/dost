@@ -28,6 +28,7 @@
             margin: 0; font-family: 'Inter', sans-serif;
             background: var(--bg); color: var(--text-main);
             display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+            padding-bottom: 120px; /* Место для фиксированной кнопки */
         }
 
         header {
@@ -39,7 +40,6 @@
 
         .container { width: 100%; max-width: 500px; padding: 20px; flex-grow: 1; }
 
-        /* КАРТОЧКА ТОВАРА В КОРЗИНЕ */
         .cart-item {
             background: var(--card-bg);
             border-radius: 25px;
@@ -61,13 +61,12 @@
             background: #ffeded; color: #ff5252; border: none;
             width: 40px; height: 40px; border-radius: 15px;
             font-size: 20px; cursor: pointer; font-weight: 800;
+            display: flex; align-items: center; justify-content: center;
         }
 
-        /* ПУСТАЯ КОРЗИНА */
         .empty-state { text-align: center; padding: 60px 20px; }
         .empty-state h1 { font-size: 60px; margin: 0; }
 
-        /* ФИКСИРОВАННЫЙ ПОДВАЛ */
         .footer-order {
             position: fixed; bottom: 0; width: 100%; max-width: 500px;
             background: var(--card-bg); padding: 25px;
@@ -89,33 +88,34 @@
 
         .btn-confirm:active { transform: scale(0.96); }
 
-        .back-btn { color: white; text-decoration: none; font-weight: 600; opacity: 0.8; font-size: 14px; margin-top: 10px; display: inline-block; }
+        .back-btn-style {
+            background: rgba(255,255,255,0.2); border: none; color: white; 
+            padding: 8px 15px; border-radius: 12px;
+            font-size: 14px; margin-top: 15px; cursor: pointer; 
+            font-family: 'Inter'; font-weight: 600;
+        }
     </style>
 </head>
 <body>
 
 <header>
-    <header>
     <h1 style="margin:0; font-size: 24px;">Мой заказ 🛒</h1>
-    <button onclick="window.history.back()" style="background:none; border:none; color:white; opacity:0.8; font-size:14px; margin-top:10px; cursor:pointer; font-family:'Inter';">
+    <button class="back-btn-style" onclick="goBack()">
         ← Назад к покупкам
     </button>
 </header>
-</header>
 
-<div class="container" id="cart-content">
-    </div>
+<div class="container" id="cart-content"></div>
 
 <div class="footer-order" id="order-panel" style="display: none;">
     <div class="total-box">
         <span>К оплате:</span>
         <b id="final-price">0 ₸</b>
     </div>
-    <button class="btn-confirm" onclick="sendToWhatsApp()">Оформить заказ в WhatsApp</button>
+    <button class="btn-confirm" onclick="sendToWhatsApp()">Оформить в WhatsApp</button>
 </div>
 
 <script>
-    // Загружаем товары из памяти
     let cart = JSON.parse(localStorage.getItem('pvl_cart')) || [];
 
     function displayItems() {
@@ -127,8 +127,8 @@
             container.innerHTML = `
                 <div class="empty-state">
                     <h1>🧺</h1>
-                    <h2>Ваша корзина пуста</h2>
-                    <p style="color:gray">Добавьте товары из каталога,<br>чтобы сделать заказ.</p>
+                    <h2 style="margin-top:10px;">Корзина пуста</h2>
+                    <p style="color:var(--text-gray)">Добавьте товары из каталога,<br>чтобы сделать заказ.</p>
                 </div>`;
             panel.style.display = 'none';
             return;
@@ -139,7 +139,7 @@
         let total = 0;
 
         cart.forEach((item, index) => {
-            total += item.price;
+            total += Number(item.price);
             container.innerHTML += `
                 <div class="cart-item">
                     <div class="item-info">
@@ -155,9 +155,18 @@
     }
 
     function deleteItem(index) {
-        cart.splice(index, 1); // Удаляем
-        localStorage.setItem('pvl_cart', JSON.stringify(cart)); // Сохраняем
-        displayItems(); // Обновляем экран
+        if (navigator.vibrate) navigator.vibrate(30);
+        cart.splice(index, 1);
+        localStorage.setItem('pvl_cart', JSON.stringify(cart));
+        displayItems();
+    }
+
+    function goBack() {
+        if (document.referrer === "") {
+            window.location.href = "catalog/index.html";
+        } else {
+            window.history.back();
+        }
     }
 
     function sendToWhatsApp() {
@@ -167,23 +176,17 @@
         let sum = 0;
         cart.forEach((item, i) => {
             text += `${i + 1}. *${item.name}* — ${item.price} ₸\n`;
-            sum += item.price;
+            sum += Number(item.price);
         });
 
         text += `\n💰 *ИТОГО: ${sum} ₸*\n\n📍 Жду подтверждения!`;
-        
         window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
-        
-        // По желанию: очистить корзину после нажатия кнопки
-        // localStorage.removeItem('pvl_cart');
     }
 
-    // Темная тема
     if (localStorage.getItem('pavlodar-theme') === 'dark') {
         document.documentElement.setAttribute('data-theme', 'dark');
     }
 
-    // Запуск при открытии
     window.onload = displayItems;
 </script>
 
