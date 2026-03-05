@@ -2,59 +2,106 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Dostavka Pavlodar24</title>
+  <title>Доставка 24/7 Павлодар</title>
 
   <style>
-    body {
-      margin: 0;
-      font-family: Arial;
-      background: #f6f6f6;
-      text-align: center;
-    }
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #f6f6f6, #e8f5e9);
+    text-align: center;
+  }
 
-    header {
-      background: #00c853;
-      padding: 25px;
-      color: white;
-      font-size: 24px;
-      font-weight: bold;
-      border-bottom-left-radius: 25px;
-      border-bottom-right-radius: 25px;
-    }
+  header {
+    background: linear-gradient(90deg, #00c853, #00e676);
+    padding: 25px;
+    color: white;
+    font-size: 26px;
+    font-weight: bold;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+  }
 
-    .box {
-      background: white;
-      margin: 20px;
-      padding: 25px;
-      border-radius: 20px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    }
+  .box {
+    background: white;
+    margin: 40px 20px;
+    padding: 30px;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    animation: fadeIn 1s ease forwards;
+    opacity: 0;
+    transform: translateY(30px);
+  }
 
-    button {
-      width: 100%;
-      padding: 15px;
-      font-size: 18px;
-      margin-top: 12px;
-      border: none;
-      border-radius: 15px;
-      cursor: pointer;
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
+  }
 
-    .whatsapp {
-      background: #00c853;
-      color: white;
-    }
+  button {
+    width: 100%;
+    padding: 16px;
+    font-size: 18px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
 
-    .catalog {
-      background: black;
-      color: white;
-    }
+  button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  }
 
-    .rules {
-      background: #eeeeee;
-      color: black;
-    }
-  </style>
+  button:active {
+    transform: scale(0.97);
+  }
+
+  .whatsapp {
+    background: #00c853;
+    color: white;
+  }
+
+  .catalog {
+    background: black;
+    color: white;
+  }
+
+  .rules {
+    background: #eeeeee;
+    color: black;
+  }
+
+  .social {
+    margin-top: 30px;
+  }
+
+  .instagram-icon {
+    width: 45px;
+    transition: 0.3s;
+  }
+
+  .instagram-icon:hover {
+    transform: scale(1.2) rotate(5deg);
+  }
+
+  .social a {
+    text-decoration: none;
+    color: #444;
+    display: block;
+    margin-top: 12px;
+    font-size: 16px;
+    transition: 0.3s;
+  }
+
+  .social a:hover {
+    color: #00c853;
+  }
+</style>
 </head>
 
 <body>
@@ -81,6 +128,26 @@
     onclick="location.href='rules/index.html'">
     Правила сервиса
   </button>
+
+  <!-- Instagram + гиперссылки -->
+  <div class="social">
+
+    <a href="https://instagram.com/dostavka.pavlodar" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png"
+           class="instagram-icon"
+           alt="Instagram">
+    </a>
+
+    <a href="https://wa.me/77716093547" target="_blank">
+      Написать нам напрямую в WhatsApp
+    </a>
+
+    <a href="catalog/index.html">
+      Перейти в полный каталог товаров
+    </a>
+
+  </div>
+
 </div>
 
 </body>
