@@ -1,289 +1,87 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Modern Catalog</title>
-    <style>
-        :root {
-            --primary: #00c853;
-            --primary-dark: #00a445;
-            --accent: #ffab00;
-            --bg: #f0f2f5;
-            --glass: rgba(255, 255, 255, 0.8);
-            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-        }
+  <meta charset="UTF-8">
+  <title>Dostavka Pavlodar24</title>
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial;
+      background: #f6f6f6;
+      text-align: center;
+    }
 
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: #f8f9fa;
-            color: #2d3436;
-            line-height: 1.5;
-        }
+    header {
+      background: #00c853;
+      padding: 25px;
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      border-bottom-left-radius: 25px;
+      border-bottom-right-radius: 25px;
+    }
 
-        .topbar {
-            position: sticky;
-            top: 0;
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            padding: 18px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255,255,255,0.3);
-        }
+    .box {
+      background: white;
+      margin: 20px;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
 
-        .topbar a { 
-            text-decoration: none; 
-            color: var(--primary); 
-            font-weight: 700;
-            font-size: 14px;
-            text-transform: uppercase;
-        }
+    button {
+      width: 100%;
+      padding: 15px;
+      font-size: 18px;
+      margin-top: 12px;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+    }
 
-        .count {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: #fff;
-            min-width: 28px;
-            height: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            font-size: 13px;
-            font-weight: bold;
-            box-shadow: 0 4px 10px rgba(0, 200, 83, 0.3);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
+    .whatsapp {
+      background: #00c853;
+      color: white;
+    }
 
-        .container {
-            padding: 20px;
-            max-width: 500px;
-            margin: 0 auto;
-            padding-bottom: 120px;
-        }
+    .catalog {
+      background: black;
+      color: white;
+    }
 
-        .card {
-            background: #fff;
-            border-radius: 24px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: var(--card-shadow);
-            border: 1px solid rgba(0,0,0,0.02);
-            transform: translateY(30px);
-            opacity: 0;
-            animation: slideIn 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-            transition: transform 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .card h3 { margin: 0 0 8px 0; font-size: 1.25rem; font-weight: 700; color: #1e272e; }
-        .card p { margin: 0 0 18px 0; color: #7f8c8d; font-size: 0.95rem; }
-
-        .price-tag {
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        .addBtn {
-            width: 100%;
-            padding: 16px;
-            font-size: 16px;
-            border: none;
-            border-radius: 18px;
-            background: linear-gradient(135deg, #2ecc71, #27ae60);
-            color: white;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 6px 15px rgba(46, 204, 113, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.3);
-            backdrop-filter: blur(4px);
-            display: none;
-            z-index: 1500;
-        }
-
-        .cartBar {
-            position: fixed;
-            bottom: -100%;
-            left: 0; right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            padding: 25px;
-            box-shadow: 0 -15px 40px rgba(0,0,0,0.12);
-            border-radius: 30px 30px 0 0;
-            transition: bottom 0.5s cubic-bezier(0, 0.55, 0.45, 1);
-            z-index: 2000;
-            max-height: 75vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .cartBar.active { bottom: 0; }
-
-        .cart-handle {
-            width: 40px; height: 4px; background: #e0e0e0;
-            border-radius: 2px; margin: -10px auto 20px;
-        }
-
-        .cartItems { overflow-y: auto; flex-grow: 1; }
-
-        .item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .controls { display: flex; align-items: center; gap: 15px; }
-        .controls button {
-            width: 36px; height: 36px; border: none; border-radius: 12px;
-            background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            font-size: 18px; font-weight: bold; color: var(--primary);
-        }
-
-        .total {
-            font-size: 1.4rem; font-weight: 900;
-            text-align: right; margin: 20px 0; color: #1e272e;
-        }
-
-        .orderBtn {
-            width: 100%; padding: 20px; font-size: 18px; border: none;
-            border-radius: 22px; background: #1e272e; color: white;
-            font-weight: 700; cursor: pointer; transition: 0.3s;
-        }
-    </style>
+    .rules {
+      background: #eeeeee;
+      color: black;
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="topbar">
-    <a href="../index.html">← Назад</a>
-    <div style="font-weight: 800; font-size: 18px;">Catalog</div>
-    <div class="count" id="count">0</div>
+<header>
+  Dostavka Pavlodar24 🚀
+</header>
+
+<div class="box">
+  <h2>Заказывай доставку за 2 минуты</h2>
+  <p>Продукты • Еда • Напитки • Аптека</p>
+
+  <button class="whatsapp"
+    onclick="window.open('https://wa.me/77716093547','_blank')">
+    Написать в WhatsApp
+  </button>
+
+  <button class="catalog"
+    onclick="location.href='catalog/index.html'">
+    Открыть каталог
+  </button>
+
+  <button class="rules"
+    onclick="location.href='rules/index.html'">
+    Правила сервиса
+  </button>
 </div>
-
-<div class="container" id="product-list"></div>
-
-<div class="overlay" id="overlay" onclick="toggleCart(false)"></div>
-
-<div class="cartBar" id="cartBar">
-    <div class="cart-handle" onclick="toggleCart(false)"></div>
-    <div class="cartItems" id="cart"></div>
-    <div class="total" id="total">0 тг</div>
-    <button class="orderBtn" onclick="sendOrder()">Оформить в WhatsApp</button>
-</div>
-
-<script>
-    const products = [
-        { id: 1, name: "Пиво «Немецкое»", price: 2000, desc: "Охлажденное, 2 литра" },
-        { id: 2, name: "Донер с Фудбазы", price: 1500, desc: "Свежая говядина, соус" },
-        { id: 3, name: "Хот-дог Сьешка", price: 1200, desc: "Двойная сосиска" },
-        { id: 4, name: "Maxi Чай 2л", price: 1000, desc: "Лимон или Персик" },
-        { id: 5, name: "Winston Caster", price: 1800, desc: "Classic blue" }
-    ];
-
-    let cart = {};
-
-    function init() {
-        const list = document.getElementById('product-list');
-        list.innerHTML = products.map((p, i) => `
-            <div class="card" style="animation-delay: ${i * 0.1}s">
-                <h3>${p.name}</h3>
-                <p>${p.desc}</p>
-                <span class="price-tag">${p.price} тг</span>
-                <button class="addBtn" onclick="addToCart(${p.id})">В корзину</button>
-            </div>
-        `).join('');
-    }
-
-    function toggleCart(show) {
-        document.getElementById("cartBar").classList.toggle("active", show);
-        document.getElementById("overlay").style.display = show ? "block" : "none";
-    }
-
-    function addToCart(id) {
-        if (navigator.vibrate) navigator.vibrate(50);
-        const p = products.find(x => x.id === id);
-        if (cart[id]) cart[id].q++;
-        else cart[id] = { name: p.name, price: p.price, q: 1 };
-        
-        const countEl = document.getElementById("count");
-        countEl.style.transform = "scale(1.4) rotate(10deg)";
-        setTimeout(() => countEl.style.transform = "scale(1)", 300);
-
-        renderCart();
-        toggleCart(true);
-    }
-
-    function changeQty(id, delta) {
-        cart[id].q += delta;
-        if (cart[id].q <= 0) delete cart[id];
-        renderCart();
-    }
-
-    function renderCart() {
-        const cartDiv = document.getElementById("cart");
-        let html = "";
-        let sum = 0;
-        let count = 0;
-
-        Object.entries(cart).forEach(([id, item]) => {
-            sum += item.price * item.q;
-            count += item.q;
-            html += `
-                <div class="item">
-                    <div>
-                        <div style="font-weight:700">${item.name}</div>
-                        <div style="font-size:12px;color:var(--primary)">${item.price * item.q} тг</div>
-                    </div>
-                    <div class="controls">
-                        <button onclick="changeQty(${id}, -1)">−</button>
-                        <span style="font-weight:bold">${item.q}</span>
-                        <button onclick="changeQty(${id}, 1)">+</button>
-                    </div>
-                </div>`;
-        });
-
-        cartDiv.innerHTML = html || "<div style='text-align:center;padding:40px;opacity:0.5'>Корзина пуста 🛒</div>";
-        document.getElementById("total").innerText = sum + " тг";
-        document.getElementById("count").innerText = count;
-        if (count === 0) toggleCart(false);
-    }
-
-    function sendOrder() {
-        if (Object.keys(cart).length === 0) return alert("Корзина пуста");
-        let msg = "🚀 *Новый заказ:*\n\n";
-        let total = 0;
-        for (let id in cart) {
-            msg += `• ${cart[id].name} — ${cart[id].q} шт.\n`;
-            total += cart[id].price * cart[id].q;
-        }
-        msg += `\n💰 *Итого: ${total} тг*`;
-        window.open(`https://wa.me/77716093547?text=${encodeURIComponent(msg)}`, "_blank");
-    }
-
-    // Запуск инициализации!
-    init();
-</script>
 
 </body>
 </html>
