@@ -7,18 +7,18 @@
 <style>
 :root {
   --primary: #00c853;
+  --bg: #111;
+  --card-bg: #fff;
+  --text-main: #fff;
+  --text-gray: #aaa;
+  --shadow: rgba(0,0,0,0.3);
+}
+[data-theme="light"] {
   --bg: #f0f2f5;
   --card-bg: #fff;
   --text-main: #1e272e;
   --text-gray: #7f8c8d;
   --shadow: rgba(0,0,0,0.08);
-}
-[data-theme="dark"] {
-  --bg: #121212;
-  --card-bg: #1e1e1e;
-  --text-main: #fff;
-  --text-gray: #a0a0a0;
-  --shadow: rgba(0,0,0,0.4);
 }
 
 body {
@@ -50,89 +50,91 @@ body {
   font-size:20px;
 }
 
-/* Хедер */
-<header>
-  <div class="batman-light">
-    <svg viewBox="0 0 200 100" class="bat-mask">
-      <defs>
-        <radialGradient id="batLight" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="yellow" stop-opacity="0.8" />
-          <stop offset="100%" stop-color="yellow" stop-opacity="0" />
-        </radialGradient>
-        <mask id="batMask">
-          <rect width="100%" height="100%" fill="white"/>
-          <!-- Силуэт летучей мыши -->
-          <path fill="black" d="M100,20 
-             C90,10 70,10 60,20 
-             C50,10 30,10 20,20 
-             C20,40 50,60 100,20 
-             C150,60 180,40 180,20 
-             C170,10 150,10 140,20 
-             C130,10 110,10 100,20 Z"/>
-        </mask>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#batLight)" mask="url(#batMask)"/>
-    </svg>
-    <span class="header-text">Доставка 24/7 Павлодар</span>
-  </div>
-</header>
-
-<div class="main-container">
-  <div class="box">
-    <h2>Заказывай доставку за 2 минуты</h2>
-    <p>Продукты • Еда • Напитки • Аптека</p>
-
-    <button class="whatsapp" onclick="window.open('https://wa.me/77716093547','_blank')">Написать в WhatsApp</button>
-    <button class="catalog" onclick="location.href='catalog/index.html'">Открыть каталог</button>
-    <button class="rules" onclick="location.href='rules/index.html'">Правила сервиса</button>
-  </div>
-
-  <div class="social-box">
-    <h3>Мы онлайн 24/7</h3>
-    <div class="icon-wrapper">
-      <a href="https://instagram.com/dostavka.pavlodar" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
-      </a>
-      <a href="https://wa.me/77716093547" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
-      </a>
-    </div>
-  </div>
-</div>
-
-<footer>© 2026 DOSTAVKA PAVLODAR24 🚀</footer>
-
-<script>
-function toggleTheme(){
-  const html = document.documentElement;
-  const icon = document.getElementById('theme-icon');
-  if(html.getAttribute('data-theme')==='dark'){
-    html.removeAttribute('data-theme');
-    icon.textContent='🌙';
-  } else {
-    html.setAttribute('data-theme','dark');
-    icon.textContent='☀️';
-  }
-}
-</script>
-</body>
-</html>  position: fixed;
-  top:15px;
-  right:15px;
-  width:45px;
-  height:45px;
-  border-radius:50%;
-  background: rgba(255,255,255,0.2);
-  backdrop-filter: blur(10px);
+/* Хедер с фонарем */
+header {
+  width:100%; max-width:500px;
+  height:200px;
+  position: relative;
+  background:#111;
+  border-bottom-left-radius:40px;
+  border-bottom-right-radius:40px;
+  overflow:hidden;
   display:flex;
   justify-content:center;
   align-items:center;
-  cursor:pointer;
-  z-index:1000;
-  font-size:20px;
+  text-align:center;
 }
 
-/* Хедер */
+.batman-light {
+  position: absolute;
+  top:0; left:50%;
+  transform: translateX(-50%);
+  width:400px; height:200px;
+}
+
+.bat-mask {
+  width:100%; height:100%;
+  animation: moveLight 4s ease-in-out infinite alternate;
+}
+
+.header-text {
+  position: relative;
+  z-index:2;
+  font-size:28px;
+  font-weight:800;
+  color:white;
+}
+
+@keyframes moveLight {
+  0% { transform: translateX(-50%) translateY(0) rotate(0deg);}
+  50% { transform: translateX(-50%) translateY(-10px) rotate(5deg);}
+  100% { transform: translateX(-50%) translateY(0) rotate(0deg);}
+}
+
+/* Контент */
+.main-container { width:100%; max-width:500px; padding:20px; margin-top:-35px; }
+
+.box {
+  background: var(--card-bg);
+  padding:30px 25px;
+  border-radius:25px;
+  box-shadow:0 15px 35px var(--shadow);
+  margin-bottom: 20px;
+  text-align:center;
+}
+
+.box h2 { margin:0 0 10px; font-size:22px; font-weight:800; }
+.box p { margin:0 0 20px; color:var(--text-gray); }
+
+/* Кнопки */
+button {
+  width:100%; padding:16px; font-size:16px; font-weight:600;
+  margin-bottom:12px; border:none; border-radius:22px;
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  cursor:pointer;
+}
+button:active { transform:scale(0.96); }
+.whatsapp { background: var(--primary); color:white; }
+.catalog { background: var(--text-main); color: var(--card-bg); }
+.rules { background: transparent; border:2px solid var(--text-main); color: var(--text-main); opacity:0.8; }
+
+/* Соцсети */
+.social-box {
+  background: var(--card-bg); padding:25px; border-radius:25px;
+  box-shadow:0 10px 30px var(--shadow); text-align:center;
+}
+.icon-wrapper { display:flex; justify-content:center; gap:25px; margin-top:15px; }
+.icon-wrapper img { width:48px; }
+
+footer { padding:30px; text-align:center; font-size:13px; color:var(--text-gray); }
+</style>
+</head>
+<body>
+
+<div class="theme-toggle" onclick="toggleTheme()">
+  <span id="theme-icon">🌙</span>
+</div>
+
 <header>
   <div class="batman-light">
     <svg viewBox="0 0 200 100" class="bat-mask">
@@ -143,7 +145,6 @@ function toggleTheme(){
         </radialGradient>
         <mask id="batMask">
           <rect width="100%" height="100%" fill="white"/>
-          <!-- Силуэт летучей мыши -->
           <path fill="black" d="M100,20 
              C90,10 70,10 60,20 
              C50,10 30,10 20,20 
@@ -155,15 +156,14 @@ function toggleTheme(){
       </defs>
       <rect width="100%" height="100%" fill="url(#batLight)" mask="url(#batMask)"/>
     </svg>
-    <span class="header-text">Доставка 24/7 Павлодар</span>
   </div>
+  <span class="header-text">Доставка 24/7 Павлодар</span>
 </header>
 
 <div class="main-container">
   <div class="box">
     <h2>Заказывай доставку за 2 минуты</h2>
     <p>Продукты • Еда • Напитки • Аптека</p>
-
     <button class="whatsapp" onclick="window.open('https://wa.me/77716093547','_blank')">Написать в WhatsApp</button>
     <button class="catalog" onclick="location.href='catalog/index.html'">Открыть каталог</button>
     <button class="rules" onclick="location.href='rules/index.html'">Правила сервиса</button>
@@ -188,11 +188,11 @@ function toggleTheme(){
 function toggleTheme(){
   const html = document.documentElement;
   const icon = document.getElementById('theme-icon');
-  if(html.getAttribute('data-theme')==='dark'){
+  if(html.getAttribute('data-theme')==='light'){
     html.removeAttribute('data-theme');
     icon.textContent='🌙';
   } else {
-    html.setAttribute('data-theme','dark');
+    html.setAttribute('data-theme','light');
     icon.textContent='☀️';
   }
 }
