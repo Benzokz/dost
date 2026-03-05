@@ -20,597 +20,121 @@
   --text-gray: #a0a0a0;
   --shadow: rgba(0,0,0,0.4);
 }
+
 body {
-  margin:0; font-family:sans-serif;
-  background:var(--bg); color:var(--text-main);
-  display:flex; flex-direction:column; align-items:center;
-}
-.theme-toggle {
-  position:fixed; top:15px; right:15px;
-  width:45px; height:45px;
-  border-radius:50%; background:rgba(255,255,255,0.2);
-  backdrop-filter:blur(10px);
-  display:flex; justify-content:center; align-items:center;
-  cursor:pointer; font-size:20px;
-}
-header {
-  width:100%; max-width:500px;
-  padding:50px 20px 70px;
-  text-align:center; background:var(--primary);
-  color:white; font-size:28px; font-weight:800;
-  border-bottom-left-radius:40px; border-bottom-right-radius:40px;
-}
-header .rocket { display:inline-block; animation:rocketMove 2s infinite ease-in-out;}
-@keyframes rocketMove {0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
-.main-container { width:100%; max-width:500px; padding:20px; margin-top:-35px; }
-.box { background:var(--card-bg); padding:30px 25px; border-radius:25px; box-shadow:0 15px 35px var(--shadow); margin-bottom:20px; text-align:center; }
-.box h2 { margin:0 0 10px; font-size:22px; font-weight:800; }
-.box p { margin:0 0 20px; color:var(--text-gray); }
-button { width:100%; padding:16px; font-size:16px; font-weight:600; margin-bottom:12px; border:none; border-radius:22px; display:flex; justify-content:center; align-items:center; gap:10px; cursor:pointer; }
-button:active { transform:scale(0.96); }
-.whatsapp { background:var(--primary); color:white; }
-.catalog { background:var(--text-main); color:var(--card-bg); }
-.rules { background:transparent; border:2px solid var(--text-main); color:var(--text-main); opacity:0.8; }
-.social-box { background:var(--card-bg); padding:25px; border-radius:25px; box-shadow:0 10px 30px var(--shadow); text-align:center; }
-.icon-wrapper { display:flex; justify-content:center; gap:25px; margin-top:15px; }
-.icon-wrapper img { width:48px; }
-footer { padding:30px; text-align:center; font-size:13px; color:var(--text-gray); }
-</style>
-</head>
-<body>
-
-<div class="theme-toggle" onclick="toggleTheme()"><span id="theme-icon">🌙</span></div>
-
-<header>Pavlodar24 <span class="rocket">🚀</span></header>
-
-<div class="main-container">
-  <div class="box">
-    <h2>Заказывай доставку за 2 минуты</h2>
-    <p>Продукты • Еда • Напитки • Аптека</p>
-    <button class="whatsapp" onclick="window.open('https://wa.me/77716093547','_blank')">Написать в WhatsApp</button>
-    <button class="catalog" onclick="location.href='catalog/index.html'">Открыть каталог</button>
-    <button class="rules" onclick="location.href='rules/index.html'">Правила сервиса</button>
-  </div>
-
-  <div class="social-box">
-    <h3>Мы онлайн 24/7</h3>
-    <div class="icon-wrapper">
-      <a href="https://instagram.com/dostavka.pavlodar" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png"></a>
-      <a href="https://wa.me/77716093547" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png"></a>
-    </div>
-  </div>
-</div>
-
-<footer>© 2026 DOSTAVKA PAVLODAR24 🚀</footer>
-
-<script>
-function toggleTheme(){
-  const html = document.documentElement;
-  if(html.getAttribute('data-theme')==='dark'){
-    html.removeAttribute('data-theme');
-    document.getElementById('theme-icon').textContent='🌙';
-  } else {
-    html.setAttribute('data-theme','dark');
-    document.getElementById('theme-icon').textContent='☀️';
-  }
-}
-</script>
-</body>
-</html>    align-items: center;
-    min-height: 100vh;
-    transition: background 0.3s ease, color 0.3s ease;
-}
-
-/* Лоадер */
-#loader {
-    position: fixed; top:0; left:0; width:100%; height:100%;
-    background: var(--primary-grad);
-    display:flex; justify-content:center; align-items:center;
-    z-index:9999;
-    color:white;
-    font-size:50px;
-    transition: opacity 0.5s ease, visibility 0.5s;
+  margin:0;
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text-main);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  min-height:100vh;
 }
 
 /* Кнопка темы */
 .theme-toggle {
-    position: fixed;
-    top: 15px;
-    right: 15px;
-    z-index: 1000;
-    width: 45px; height: 45px;
-    border-radius: 50%;
-    background: var(--glass);
-    backdrop-filter: blur(10px);
-    display:flex; justify-content:center; align-items:center;
-    cursor:pointer;
-    font-size: 20px;
+  position: fixed;
+  top:15px;
+  right:15px;
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  cursor:pointer;
+  z-index:1000;
+  font-size:20px;
 }
 
-/* Шапка */
+/* Хедер */
 header {
-    width: 100%; max-width: 500px;
-    padding: 50px 20px 70px 20px;
-    text-align:center;
-    background: var(--primary-grad);
-    color:white;
-    font-size:28px; font-weight:800;
-    border-bottom-left-radius:40px;
-    border-bottom-right-radius:40px;
-    position: relative;
+  width:100%;
+  max-width:500px;
+  padding:50px 20px;
+  text-align:center;
+  background: var(--primary);
+  color:white;
+  font-size:28px;
+  font-weight:800;
+  border-bottom-left-radius:40px;
+  border-bottom-right-radius:40px;
 }
-header .rocket { display:inline-block; animation: rocketMove 2s infinite ease-in-out; }
+.rocket { display:inline-block; animation: rocketMove 2s infinite ease-in-out; }
 @keyframes rocketMove { 0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);} }
 
 /* Контент */
-.main-container { width:100%; max-width:500px; padding:20px; margin-top:-35px; }
+.main-container {
+  width:100%;
+  max-width:500px;
+  padding:20px;
+  margin-top:-35px;
+}
 .box {
-    background: var(--card-bg);
-    padding:30px 25px;
-    border-radius:25px;
-    box-shadow:0 15px 35px var(--shadow);
-    margin-bottom: 20px;
-    text-align:center;
+  background: var(--card-bg);
+  padding:30px 25px;
+  border-radius:25px;
+  box-shadow:0 15px 35px var(--shadow);
+  margin-bottom:20px;
+  text-align:center;
 }
 .box h2 { margin:0 0 10px; font-size:22px; font-weight:800; }
 .box p { margin:0 0 20px; color:var(--text-gray); }
 
 /* Кнопки */
 button {
-    width:100%; padding:16px; font-size:16px; font-weight:600;
-    margin-bottom:12px; border:none; border-radius:22px;
-    display:flex; align-items:center; justify-content:center; gap:10px;
-    cursor:pointer;
-    transition: transform 0.1s ease;
+  width:100%;
+  padding:16px;
+  font-size:16px;
+  font-weight:600;
+  margin-bottom:12px;
+  border:none;
+  border-radius:22px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  cursor:pointer;
+  transition: transform 0.1s ease;
 }
 button:active { transform:scale(0.96); }
-.whatsapp { background: var(--primary); color:white; }
-.catalog { background: var(--text-main); color: var(--card-bg); }
-.rules { background: transparent; border:2px solid var(--text-main); color: var(--text-main); opacity:0.8; }
+.whatsapp { background:var(--primary); color:white; }
+.catalog { background:var(--text-main); color:var(--card-bg); }
+.rules { background:transparent; border:2px solid var(--text-main); color:var(--text-main); opacity:0.8; }
 
 /* Соцсети */
 .social-box {
-    background: var(--card-bg); padding:25px; border-radius:25px;
-    box-shadow:0 10px 30px var(--shadow); text-align:center;
+  background:var(--card-bg);
+  padding:25px;
+  border-radius:25px;
+  box-shadow:0 10px 30px var(--shadow);
+  text-align:center;
 }
-.icon-wrapper { display:flex; justify-content:center; gap:25px; margin-top:15px; }
+.icon-wrapper {
+  display:flex;
+  justify-content:center;
+  gap:25px;
+  margin-top:15px;
+}
 .icon-wrapper img { width:48px; }
 
 /* Футер */
-footer { padding:30px; text-align:center; font-size:13px; color:var(--text-gray); }
+footer {
+  padding:30px;
+  text-align:center;
+  font-size:13px;
+  color:var(--text-gray);
+}
 </style>
 </head>
 <body>
 
-<div id="loader">🚀</div>
-
 <div class="theme-toggle" onclick="toggleTheme()">
-    <span id="theme-icon">🌙</span>
-</div>
-
-<header>
-    Pavlodar24 <span class="rocket">🚀</span>
-</header>
-
-<div class="main-container">
-    <div class="box">
-        <h2>Заказывай доставку за 2 минуты</h2>
-        <p>Продукты • Еда • Напитки • Аптека</p>
-
-        <button class="whatsapp" onclick="window.open('https://wa.me/77716093547','_blank')">
-            Написать в WhatsApp
-        </button>
-        <button class="catalog" onclick="location.href='catalog/index.html'">Открыть каталог</button>
-        <button class="rules" onclick="location.href='rules/index.html'">Правила сервиса</button>
-    </div>
-
-    <div class="social-box">
-        <h3>Мы онлайн 24/7</h3>
-        <div class="icon-wrapper">
-            <a href="https://instagram.com/dostavka.pavlodar" target="_blank">
-                <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
-            </a>
-            <a href="https://wa.me/77716093547" target="_blank">
-                <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
-            </a>
-        </div>
-    </div>
-</div>
-
-<footer>© 2026 DOSTAVKA PAVLODAR24 🚀</footer>
-
-<script>
-    // Лоадер
-    window.addEventListener('load', ()=>{ 
-        document.getElementById('loader').style.opacity='0'; 
-        setTimeout(()=>document.getElementById('loader').style.display='none',500);
-    });
-
-    // Тёмная тема
-    function toggleTheme() {
-        const html = document.documentElement;
-        if(html.getAttribute('data-theme')==='dark'){
-            html.removeAttribute('data-theme');
-            document.getElementById('theme-icon').textContent='🌙';
-        } else {
-            html.setAttribute('data-theme','dark');
-            document.getElementById('theme-icon').textContent='☀️';
-        }
-    }
-</script>
-</body>
-</html>        body {
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--text-main);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            transition: background 0.4s ease;
-        }
-
-        /* ПРЕЛЛОАДЕР */
-        #loader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--primary-grad);
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 10000; color: white; transition: opacity 0.5s ease, visibility 0.5s;
-        }
-
-        /* ИЗЯЩНАЯ КНОПКА ТЕМЫ */
-        .theme-toggle {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 1000;
-            font-size: 18px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        /* ШАПКА */
-        header {
-            width: 100%;
-            max-width: 500px;
-            padding: 60px 20px 80px 20px;
-            background: var(--primary-grad);
-            color: white;
-            text-align: center;
-            border-bottom-left-radius: 45px;
-            border-bottom-right-radius: 45px;
-            position: relative;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 32px;
-            font-weight: 800;
-            letter-spacing: -1px;
-        }
-
-        /* КОНТЕНТНАЯ ЧАСТЬ */
-        .main-content {
-            width: 100%;
-            max-width: 500px;
-            padding: 0 20px;
-            margin-top: -40px; /* Эффект наплыва на хедер */
-            z-index: 10;
-        }
-
-        .main-card {
-            background: var(--card-bg);
-            padding: 35px 25px;
-            border-radius: 35px;
-            box-shadow: 0 15px 40px var(--shadow);
-            text-align: center;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: slideIn 0.7s ease forwards;
-            transition: background 0.4s ease;
-        }
-
-        @keyframes slideIn {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h2 { font-size: 24px; font-weight: 800; margin: 0 0 10px 0; line-height: 1.2; }
-        .subtitle { color: var(--text-gray); font-size: 16px; margin-bottom: 30px; }
-
-        /* КНОПКИ */
-        .btn {
-            width: 100%;
-            padding: 18px;
-            border-radius: 22px;
-            border: none;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary { 
-            background: var(--primary-grad); 
-            color: white; 
-            box-shadow: 0 8px 20px rgba(0, 200, 83, 0.2);
-        }
-
-        .btn-black { 
-            background: var(--text-main); 
-            color: var(--card-bg); 
-            box-shadow: 0 8px 20px var(--shadow);
-        }
-
-        .btn-ghost { 
-            background: rgba(127, 140, 141, 0.1); 
-            color: var(--text-main); 
-        }
-
-        .btn:active { transform: scale(0.96); opacity: 0.9; }
-
-        /* СОЦСЕТИ */
-        .social-section {
-            background: var(--card-bg);
-            margin-top: 20px;
-            padding: 25px;
-            border-radius: 35px;
-            box-shadow: 0 10px 30px var(--shadow);
-            text-align: center;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: slideIn 0.7s ease 0.2s forwards;
-            transition: background 0.4s ease;
-        }
-
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 20px;
-        }
-
-        .social-icons img {
-            width: 48px;
-            transition: transform 0.3s ease;
-        }
-
-        .social-icons a:active img { transform: scale(1.2); }
-
-        footer {
-            padding: 40px;
-            color: var(--text-gray);
-            font-size: 13px;
-            text-align: center;
-            letter-spacing: 1px;
-        }
-
-        .rocket { display: inline-block; animation: rocketFly 2.5s infinite ease-in-out; }
-        @keyframes rocketFly {
-            0%, 100% { transform: translateY(0) rotate(0); }
-            50% { transform: translateY(-10px) rotate(5deg); }
-        }
-    </style>
-</head>
-<body>
-
-<div id="loader">
-    <span style="font-size: 60px;">🚀</span>
-    <h2 style="color: white; margin-top: 20px; letter-spacing: 3px;">PAVLODAR24</h2>
-</div>
-
-<header>
-    <div class="theme-toggle" onclick="toggleTheme()">
-        <span id="theme-icon">🌙</span>
-    </div>
-    <h1>Pavlodar24 <span class="rocket">🚀</span></h1>
-</header>
-
-<div class="main-content">
-    <div class="main-card">
-        <h2>Доставка за 2 минуты</h2>
-        <p class="subtitle">Еда • Напитки • Продукты • 24/7</p>
-
-        <button class="btn btn-primary" onclick="vibrateLink('https://wa.me/77716093547')">
-            <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="20" style="filter: brightness(0) invert(1);">
-            Написать в WhatsApp
-        </button>
-
-        <button class="btn btn-black" onclick="vibrateLink('catalog/index.html', false)">
-            📦 Открыть каталог
-        </button>
-
-        <button class="btn btn-ghost" onclick="vibrateLink('rules/index.html', false)">
-            📋 Правила сервиса
-        </button>
-    </div>
-
-    <div class="social-section">
-        <h3 style="margin:0; font-size: 18px; font-weight: 800;">Мы онлайн</h3>
-        <div class="social-icons">
-            <a href="https://instagram.com/dostavka.pavlodar" target="_blank">
-                <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
-            </a>
-            <a href="https://wa.me/77716093547" target="_blank">
-                <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
-            </a>
-        </div>
-    </div>
-</div>
-
-<footer>© 2026 DOSTAVKA PAVLODAR24 🚀</footer>
-
-<script>
-    // 1. Убираем лоадер
-    window.        }
-
-        body {
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--text-main);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* ПРЕЛЛОАДЕР (ВАУ-ЭФФЕКТ) */
-        #loader {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--primary-grad);
-            display: flex; justify-content: center; align-items: center;
-            z-index: 9999;
-            transition: opacity 0.6s ease, visibility 0.6s;
-        }
-        .loader-content { color: white; text-align: center; }
-        .loader-rocket { font-size: 50px; animation: pulse 1.5s infinite; display: block; }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
-
-        /* КНОПКА ТЕМЫ */
-        .theme-switch {
-            position: fixed; top: 20px; right: 20px; z-index: 1000;
-            background: var(--blur-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-            width: 45px; height: 45px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; box-shadow: 0 4px 15px var(--shadow);
-        }
-
-        header {
-            width: 100%; max-width: 500px; padding: 70px 20px;
-            text-align: center; background: var(--primary-grad); color: white;
-            font-size: 32px; font-weight: 800; border-bottom-left-radius: 45px;
-            border-bottom-right-radius: 45px; box-shadow: 0 10px 30px rgba(0, 200, 83, 0.3);
-            letter-spacing: -1px;
-        }
-
-        .main-container { width: 100%; max-width: 500px; padding: 20px; margin-top: -45px; }
-
-        .card {
-            background: var(--card-bg); padding: 35px 25px; border-radius: 35px;
-            box-shadow: 0 20px 45px var(--shadow);
-            opacity: 0; transform: translateY(30px);
-            animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
-
-        h2 { font-weight: 800; font-size: 24px; margin: 0 0 10px 0; }
-        p { color: var(--text-gray); margin-bottom: 30px; line-height: 1.5; }
-
-        /* КНОПКИ */
-        button {
-            width: 100%; padding: 20px; font-size: 17px; font-weight: 700;
-            margin-bottom: 15px; border: none; border-radius: 22px;
-            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px;
-        }
-
-        .btn-wa { background: var(--primary-grad); color: white; box-shadow: 0 10px 20px rgba(0, 200, 83, 0.2); }
-        .btn-cat { background: var(--text-main); color: var(--card-bg); }
-        .btn-rules { background: transparent; border: 2px solid var(--text-main); color: var(--text-main); opacity: 0.7; }
-
-        button:active { transform: scale(0.96); }
-
-        /* СОЦСЕТИ */
-        .social-box {
-            margin-top: 25px; background: var(--card-bg); padding: 25px;
-            border-radius: 35px; box-shadow: 0 10px 30px var(--shadow);
-            text-align: center; opacity: 0; transform: translateY(30px);
-            animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s forwards;
-        }
-
-        .icons { display: flex; justify-content: center; gap: 35px; margin-top: 15px; }      background: var(--bg);
-      color: var(--text-main);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-    }
-
-    /* Кнопка темы */
-    .theme-toggle {
-      position: fixed;
-      top: 15px;
-      right: 15px;
-      z-index: 1000;
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      width: 45px; height: 45px; border-radius: 50%;
-      cursor: pointer; display: flex; align-items: center; justify-content: center;
-    }
-
-    header {
-      width: 100%; max-width: 500px; padding: 50px 20px;
-      text-align: center; background: var(--primary); color: white;
-      font-size: 28px; font-weight: 800; border-bottom-left-radius: 40px;
-      border-bottom-right-radius: 40px; box-shadow: 0 10px 30px rgba(0, 200, 83, 0.2);
-    }
-
-    .main-container { width: 100%; max-width: 500px; padding: 20px; }
-
-    .box {
-      background: var(--card-bg); padding: 30px 25px; border-radius: var(--card-radius);
-      box-shadow: 0 15px 35px var(--shadow); margin-top: -35px;
-      opacity: 0; transform: translateY(20px);
-      animation: fadeInUp 0.8s ease forwards;
-    }
-
-    h2 { font-weight: 800; font-size: 22px; margin: 0 0 10px 0; }
-    p { color: var(--text-secondary); margin-bottom: 25px; }
-
-    button {
-      width: 100%; padding: 18px; font-size: 16px; font-weight: 600;
-      margin-bottom: 12px; border: none; border-radius: 20px;
-      cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
-    }
-
-    .whatsapp { background: var(--primary); color: white; }
-    .catalog { background: var(--text-main); color: var(--card-bg); }
-    .rules { background: var(--btn-rules); color: var(--text-secondary); }
-
-    button:active { transform: scale(0.96); }
-
-    .social-box {
-      background: var(--card-bg); margin-top: 20px; padding: 25px;
-      border-radius: var(--card-radius); box-shadow: 0 10px 30px var(--shadow);
-      opacity: 0; transform: translateY(20px);
-      animation: fadeInUp 0.8s ease 0.2s forwards;
-    }
-
-    .icon-wrapper { display: flex; justify-content: center; gap: 25px; margin-top: 20px; }
-    .icon-wrapper img { width: 48px; }
-
-    footer { padding: 30px; font-size: 13px; color: var(--text-secondary); text-align: center; }
-
-    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-
-    .rocket { display: inline-block; animation: rocketMove 2s infinite ease-in-out; }
-    @keyframes rocketMove { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-  </style>
-</head>
-
-<body>
-
-<button class="theme-toggle" onclick="toggleTheme()">
   <span id="theme-icon">🌙</span>
-</button>
+</div>
 
 <header>
   Pavlodar24 <span class="rocket">🚀</span>
@@ -621,21 +145,13 @@ footer { padding:30px; text-align:center; font-size:13px; color:var(--text-gray)
     <h2>Заказывай доставку за 2 минуты</h2>
     <p>Продукты • Еда • Напитки • Аптека</p>
 
-    <button class="whatsapp" onclick="window.open('https://wa.me/77716093547','_blank')">
-      Написать в WhatsApp
-    </button>
-
-    <button class="catalog" onclick="location.href='catalog/index.html'">
-      Открыть каталог
-    </button>
-
-    <button class="rules" onclick="location.href='rules/index.html'">
-      Правила сервиса
-    </button>
+    <button class="whatsapp" onclick="window.open('https://wa.me/77716093547','_blank')">Написать в WhatsApp</button>
+    <button class="catalog" onclick="location.href='catalog/index.html'">Открыть каталог</button>
+    <button class="rules" onclick="location.href='rules/index.html'">Правила сервиса</button>
   </div>
 
   <div class="social-box">
-    <h3 style="margin:0; text-align:center;">Мы онлайн 24/7</h3>
+    <h3>Мы онлайн 24/7</h3>
     <div class="icon-wrapper">
       <a href="https://instagram.com/dostavka.pavlodar" target="_blank">
         <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
@@ -647,8 +163,20 @@ footer { padding:30px; text-align:center; font-size:13px; color:var(--text-gray)
   </div>
 </div>
 
-<footer>
-  © 2026 DOSTAVKA PAVLODAR24 🚀
-</footer>
+<footer>© 2026 DOSTAVKA PAVLODAR24 🚀</footer>
 
-
+<script>
+function toggleTheme(){
+  const html = document.documentElement;
+  const icon = document.getElementById('theme-icon');
+  if(html.getAttribute('data-theme')==='dark'){
+    html.removeAttribute('data-theme');
+    icon.textContent='🌙';
+  } else {
+    html.setAttribute('data-theme','dark');
+    icon.textContent='☀️';
+  }
+}
+</script>
+</body>
+</html>
