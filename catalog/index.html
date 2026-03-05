@@ -24,7 +24,6 @@
             line-height: 1.5;
         }
 
-        /* ===== ШАПКА ===== */
         .topbar {
             position: sticky;
             top: 0;
@@ -63,7 +62,6 @@
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* ===== СЕТКА ТОВАРОВ ===== */
         .container {
             padding: 20px;
             max-width: 500px;
@@ -83,8 +81,6 @@
             animation: slideIn 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
             transition: transform 0.3s ease;
         }
-
-        .card:active { transform: scale(0.98); }
 
         @keyframes slideIn {
             to { opacity: 1; transform: translateY(0); }
@@ -115,9 +111,6 @@
             transition: all 0.3s ease;
         }
 
-        .addBtn:active { transform: translateY(2px); box-shadow: none; }
-
-        /* ===== КОРЗИНА (GLASSMorphism) ===== */
         .overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -125,16 +118,13 @@
             backdrop-filter: blur(4px);
             display: none;
             z-index: 1500;
-            animation: fadeIn 0.3s ease;
         }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .cartBar {
             position: fixed;
             bottom: -100%;
             left: 0; right: 0;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             padding: 25px;
@@ -181,9 +171,6 @@
             border-radius: 22px; background: #1e272e; color: white;
             font-weight: 700; cursor: pointer; transition: 0.3s;
         }
-
-        .orderBtn:active { transform: scale(0.97); }
-
     </style>
 </head>
 <body>
@@ -239,7 +226,6 @@
         if (cart[id]) cart[id].q++;
         else cart[id] = { name: p.name, price: p.price, q: 1 };
         
-        // Анимация счетчика
         const countEl = document.getElementById("count");
         countEl.style.transform = "scale(1.4) rotate(10deg)";
         setTimeout(() => countEl.style.transform = "scale(1)", 300);
@@ -263,4 +249,41 @@
         Object.entries(cart).forEach(([id, item]) => {
             sum += item.price * item.q;
             count += item.q;
-            html
+            html += `
+                <div class="item">
+                    <div>
+                        <div style="font-weight:700">${item.name}</div>
+                        <div style="font-size:12px;color:var(--primary)">${item.price * item.q} тг</div>
+                    </div>
+                    <div class="controls">
+                        <button onclick="changeQty(${id}, -1)">−</button>
+                        <span style="font-weight:bold">${item.q}</span>
+                        <button onclick="changeQty(${id}, 1)">+</button>
+                    </div>
+                </div>`;
+        });
+
+        cartDiv.innerHTML = html || "<div style='text-align:center;padding:40px;opacity:0.5'>Корзина пуста 🛒</div>";
+        document.getElementById("total").innerText = sum + " тг";
+        document.getElementById("count").innerText = count;
+        if (count === 0) toggleCart(false);
+    }
+
+    function sendOrder() {
+        if (Object.keys(cart).length === 0) return alert("Корзина пуста");
+        let msg = "🚀 *Новый заказ:*\n\n";
+        let total = 0;
+        for (let id in cart) {
+            msg += `• ${cart[id].name} — ${cart[id].q} шт.\n`;
+            total += cart[id].price * cart[id].q;
+        }
+        msg += `\n💰 *Итого: ${total} тг*`;
+        window.open(`https://wa.me/77716093547?text=${encodeURIComponent(msg)}`, "_blank");
+    }
+
+    // Запуск инициализации!
+    init();
+</script>
+
+</body>
+</html>
