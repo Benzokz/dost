@@ -1,112 +1,216 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Pavlodar24 | Главная</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #00c853;
-            --bg: #f0f2f5;
-            --card-bg: #ffffff;
-            --text-main: #1e272e;
-            --shadow: rgba(0, 0, 0, 0.08);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pavlodar24 | Доставка</title>
+<style>
+:root {
+  --primary: #00c853;
+  --bg: #f0f2f5;
+  --card-bg: #fff;
+  --text-main: #1e272e;
+  --text-gray: #7f8c8d;
+  --header-bg: #ffffffcc;
+  --header-text: #1e272e;
+}
 
-        /* Цвета для темной темы */
-        [data-theme="dark"] {
-            --bg: #121212;
-            --card-bg: #1e1e1e;
-            --text-main: #ffffff;
-            --shadow: rgba(0, 0, 0, 0.4);
-        }
+[data-theme="dark"] {
+  --bg: #111;
+  --card-bg: #1e1e1e;
+  --text-main: #fff;
+  --text-gray: #aaa;
+  --header-bg: #222222cc;
+  --header-text: #fff;
+}
 
-        body {
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--text-main);
-            transition: background 0.3s, color 0.3s;
-        }
+body {
+  margin:0;
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text-main);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  min-height:100vh;
+}
 
-        /* Стили кнопки переключения (пример) */
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 10px;
-            background: var(--card-bg);
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 4px 10px var(--shadow);
-            border: none;
-            font-size: 20px;
-            z-index: 1001;
-        }
+/* Кнопка темы */
+.theme-toggle {
+  position: fixed;
+  top:15px;
+  right:15px;
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  cursor:pointer;
+  z-index:1000;
+  font-size:20px;
+}
 
-        header {
-            padding: 60px 20px;
-            text-align: center;
-            background: linear-gradient(135deg, #00c853, #00e676);
-            color: white;
-            border-bottom-left-radius: 40px;
-            border-bottom-right-radius: 40px;
-        }
+/* Header */
+header {
+  width:100%;
+  max-width:500px;
+  height:120px;
+  background: var(--header-bg);
+  border-bottom-left-radius:30px;
+  border-bottom-right-radius:30px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  box-shadow:0 4px 20px rgba(0,0,0,0.1);
+}
 
-        .main-btn {
-            display: block;
-            max-width: 400px;
-            margin: 20px auto;
-            padding: 25px;
-            background: var(--card-bg);
-            color: var(--text-main);
-            text-decoration: none;
-            border-radius: 28px;
-            font-weight: 800;
-            font-size: 20px;
-            text-align: center;
-            box-shadow: 0 10px 25px var(--shadow);
-        }
-    </style>
+/* Статичный текст хедера */
+.header-text {
+  font-size:26px;
+  font-weight:800;
+  color: var(--header-text);
+  text-align:center;
+  padding:0 15px;
+}
+
+/* Контент */
+.main-container {
+  width:100%;
+  max-width:500px;
+  padding:20px;
+  margin-top:20px;
+}
+
+.box {
+  background: var(--card-bg);
+  padding:30px 25px;
+  border-radius:25px;
+  box-shadow:0 15px 35px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  text-align:center;
+}
+
+.box h2 {
+  margin:0 0 10px;
+  font-size:22px;
+  font-weight:800;
+}
+
+.box p {
+  margin:0 0 20px;
+  color:var(--text-gray);
+}
+
+/* Кнопки */
+button {
+  width:100%;
+  padding:16px;
+  font-size:16px;
+  font-weight:600;
+  margin-bottom:12px;
+  border:none;
+  border-radius:22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  cursor:pointer;
+}
+
+button:active {
+  transform:scale(0.96);
+}
+
+.whatsapp { background: var(--primary); color:white; }
+.catalog { background: var(--text-main); color: var(--card-bg); }
+.rules { background: transparent; border:2px solid var(--text-main); color: var(--text-main); opacity:0.8; }
+
+/* Соцсети */
+.social-box {
+  background: var(--card-bg);
+  padding:25px;
+  border-radius:25px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+  text-align:center;
+}
+
+.icon-wrapper {
+  display:flex;
+  justify-content:center;
+  gap:25px;
+  margin-top:15px;
+}
+
+.icon-wrapper img { width:48px; }
+
+footer {
+  padding:30px;
+  text-align:center;
+  font-size:13px;
+  color:var(--text-gray);
+}
+</style>
 </head>
 <body>
 
-<script>
-    (function() {
-        const savedTheme = localStorage.getItem('pavlodar-theme');
-        if (savedTheme === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        }
-    })();
-</script>
-
-<button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌓</button>
-
-<header>
-    <h1>Pavlodar24 🚀</h1>
-    <p>Доставка и услуги в вашем городе</p>
-</header>
-
-<div style="padding: 20px;">
-    <a href="catalog/index.html" class="main-btn">📦 Перейти в каталог</a>
-    <a href="cart.html" class="main-btn" style="background: var(--primary); color: white;">🛒 Моя корзина</a>
+<div class="theme-toggle" onclick="toggleTheme()">
+  <span id="theme-icon">🌙</span>
 </div>
 
+<header>
+  <div class="header-text">Доставка 24/7 Павлодар</div>
+</header>
+
+<div class="main-container">
+  <div class="box">
+    <h2>Заказывай доставку за 2 минуты</h2>
+    <p>Продукты • Еда • Напитки • Аптека</p>
+    <button class="whatsapp" onclick="window.open('https://wa.me/77716093547','_blank')">Написать в WhatsApp</button>
+    <button class="catalog" onclick="location.href='catalog/index.html'">Открыть каталог</button>
+    <button class="rules" onclick="location.href='rules/index.html'">Правила сервиса</button>
+  </div>
+
+  <div class="social-box">
+    <h3>Мы онлайн 24/7</h3>
+    <div class="icon-wrapper">
+      <a href="https://instagram.com/dostavka.pavlodar" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
+      </a>
+      <a href="https://wa.me/77716093547" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>© 2026 DOSTAVKA PAVLODAR24 🚀</footer>
+
 <script>
-    function toggleTheme() {
-        const html = document.documentElement;
-        let currentTheme = html.getAttribute('data-theme');
-        let newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        
-        // Применяем тему
-        html.setAttribute('data-theme', newTheme);
-        
-        // СОХРАНЯЕМ В ПАМЯТЬ ДЛЯ ВСЕХ СТРАНИЦ
-        localStorage.setItem('pavlodar-theme', newTheme);
-        
-        console.log("Тема изменена на: " + newTheme);
-    }
+function toggleTheme() {
+  const html = document.documentElement;
+  const icon = document.getElementById('theme-icon');
+  if (html.getAttribute('data-theme') === 'dark') {
+    html.removeAttribute('data-theme');
+    localStorage.removeItem('theme');
+    icon.textContent = '🌙';
+  } else {
+    html.setAttribute('data-theme', 'dark');
+    localStorage.setItem('theme', 'dark');
+    icon.textContent = '☀️';
+  }
+}
+
+// Проверка сохраненной темы при загрузке
+window.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('theme') === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('theme-icon').textContent = '☀️';
+  }
+});
 </script>
 
 </body>
