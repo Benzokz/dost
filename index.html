@@ -2,39 +2,101 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pavlodar24 | Доставка</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 :root {
-    --primary: #00c853;
-    --primary-grad: linear-gradient(135deg, #00c853, #00e676);
-    --bg: #f0f2f5;
-    --card-bg: #fff;
-    --text-main: #1e272e;
-    --text-gray: #7f8c8d;
-    --shadow: rgba(0,0,0,0.08);
-    --glass: rgba(255,255,255,0.2);
+  --primary: #00c853;
+  --bg: #f0f2f5;
+  --card-bg: #fff;
+  --text-main: #1e272e;
+  --text-gray: #7f8c8d;
+  --shadow: rgba(0,0,0,0.08);
 }
-
 [data-theme="dark"] {
-    --bg: #121212;
-    --card-bg: #1e1e1e;
-    --text-main: #fff;
-    --text-gray: #a0a0a0;
-    --shadow: rgba(0,0,0,0.4);
-    --glass: rgba(0,0,0,0.3);
+  --bg: #121212;
+  --card-bg: #1e1e1e;
+  --text-main: #fff;
+  --text-gray: #a0a0a0;
+  --shadow: rgba(0,0,0,0.4);
 }
-
-* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--text-main);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  margin:0; font-family:sans-serif;
+  background:var(--bg); color:var(--text-main);
+  display:flex; flex-direction:column; align-items:center;
+}
+.theme-toggle {
+  position:fixed; top:15px; right:15px;
+  width:45px; height:45px;
+  border-radius:50%; background:rgba(255,255,255,0.2);
+  backdrop-filter:blur(10px);
+  display:flex; justify-content:center; align-items:center;
+  cursor:pointer; font-size:20px;
+}
+header {
+  width:100%; max-width:500px;
+  padding:50px 20px 70px;
+  text-align:center; background:var(--primary);
+  color:white; font-size:28px; font-weight:800;
+  border-bottom-left-radius:40px; border-bottom-right-radius:40px;
+}
+header .rocket { display:inline-block; animation:rocketMove 2s infinite ease-in-out;}
+@keyframes rocketMove {0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
+.main-container { width:100%; max-width:500px; padding:20px; margin-top:-35px; }
+.box { background:var(--card-bg); padding:30px 25px; border-radius:25px; box-shadow:0 15px 35px var(--shadow); margin-bottom:20px; text-align:center; }
+.box h2 { margin:0 0 10px; font-size:22px; font-weight:800; }
+.box p { margin:0 0 20px; color:var(--text-gray); }
+button { width:100%; padding:16px; font-size:16px; font-weight:600; margin-bottom:12px; border:none; border-radius:22px; display:flex; justify-content:center; align-items:center; gap:10px; cursor:pointer; }
+button:active { transform:scale(0.96); }
+.whatsapp { background:var(--primary); color:white; }
+.catalog { background:var(--text-main); color:var(--card-bg); }
+.rules { background:transparent; border:2px solid var(--text-main); color:var(--text-main); opacity:0.8; }
+.social-box { background:var(--card-bg); padding:25px; border-radius:25px; box-shadow:0 10px 30px var(--shadow); text-align:center; }
+.icon-wrapper { display:flex; justify-content:center; gap:25px; margin-top:15px; }
+.icon-wrapper img { width:48px; }
+footer { padding:30px; text-align:center; font-size:13px; color:var(--text-gray); }
+</style>
+</head>
+<body>
+
+<div class="theme-toggle" onclick="toggleTheme()"><span id="theme-icon">🌙</span></div>
+
+<header>Pavlodar24 <span class="rocket">🚀</span></header>
+
+<div class="main-container">
+  <div class="box">
+    <h2>Заказывай доставку за 2 минуты</h2>
+    <p>Продукты • Еда • Напитки • Аптека</p>
+    <button class="whatsapp" onclick="window.open('https://wa.me/77716093547','_blank')">Написать в WhatsApp</button>
+    <button class="catalog" onclick="location.href='catalog/index.html'">Открыть каталог</button>
+    <button class="rules" onclick="location.href='rules/index.html'">Правила сервиса</button>
+  </div>
+
+  <div class="social-box">
+    <h3>Мы онлайн 24/7</h3>
+    <div class="icon-wrapper">
+      <a href="https://instagram.com/dostavka.pavlodar" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png"></a>
+      <a href="https://wa.me/77716093547" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png"></a>
+    </div>
+  </div>
+</div>
+
+<footer>© 2026 DOSTAVKA PAVLODAR24 🚀</footer>
+
+<script>
+function toggleTheme(){
+  const html = document.documentElement;
+  if(html.getAttribute('data-theme')==='dark'){
+    html.removeAttribute('data-theme');
+    document.getElementById('theme-icon').textContent='🌙';
+  } else {
+    html.setAttribute('data-theme','dark');
+    document.getElementById('theme-icon').textContent='☀️';
+  }
+}
+</script>
+</body>
+</html>    align-items: center;
     min-height: 100vh;
     transition: background 0.3s ease, color 0.3s ease;
 }
