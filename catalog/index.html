@@ -6,136 +6,156 @@
 <title>Каталог</title>
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg,#f6f6f6,#e8f5e9);
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:linear-gradient(135deg,#f5f5f5,#e8f5e9);
 }
 
-/* Верхняя панель */
-.topbar {
-  position: sticky;
-  top: 0;
-  background: white;
-  padding: 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: bold;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  z-index: 1000;
+/* ===== HEADER ===== */
+.topbar{
+  position:sticky;
+  top:0;
+  background:#fff;
+  padding:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 2px 15px rgba(0,0,0,0.05);
+  z-index:1000;
 }
 
-.topbar a {
-  text-decoration: none;
-  color: #00c853;
+.topbar a{
+  text-decoration:none;
+  color:#00c853;
+  font-weight:bold;
 }
 
-/* Контейнер */
-.container {
-  padding: 15px;
-  padding-bottom: 160px;
+.count{
+  background:#00c853;
+  color:#fff;
+  padding:5px 10px;
+  border-radius:20px;
+  font-size:14px;
 }
 
-/* Карточки */
-.card {
-  background: white;
-  border-radius: 20px;
-  padding: 18px;
-  margin-bottom: 15px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-  animation: fadeUp 0.5s ease forwards;
-  opacity: 0;
-  transform: translateY(20px);
+/* ===== CONTAINER ===== */
+.container{
+  padding:15px;
+  padding-bottom:170px;
 }
 
-@keyframes fadeUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
+/* ===== CARDS ===== */
+.card{
+  background:#fff;
+  border-radius:20px;
+  padding:18px;
+  margin-bottom:18px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+  opacity:0;
+  transform:translateY(20px);
+  animation:fadeUp 0.6s forwards;
+}
+
+.card:nth-child(2){animation-delay:0.1s;}
+.card:nth-child(3){animation-delay:0.2s;}
+.card:nth-child(4){animation-delay:0.3s;}
+.card:nth-child(5){animation-delay:0.4s;}
+
+@keyframes fadeUp{
+  to{
+    opacity:1;
+    transform:translateY(0);
   }
 }
 
-.card h3 { margin: 0; }
-.card p { margin: 6px 0; color: gray; }
+.card h3{margin:0;}
+.card p{margin:6px 0;color:gray;}
 
-.addBtn {
-  width: 100%;
-  margin-top: 12px;
-  padding: 14px;
-  font-size: 16px;
-  border: none;
-  border-radius: 15px;
-  background: #00c853;
-  color: white;
-  transition: 0.3s;
+.addBtn{
+  width:100%;
+  margin-top:12px;
+  padding:14px;
+  font-size:16px;
+  border:none;
+  border-radius:15px;
+  background:#00c853;
+  color:white;
+  transition:0.3s;
+  cursor:pointer;
 }
 
-.addBtn:hover { transform: scale(1.03); }
-.addBtn:active { transform: scale(0.97); }
-
-/* Нижняя корзина */
-.cartBar {
-  position: fixed;
-  bottom: -100%;
-  left: 0;
-  right: 0;
-  background: white;
-  padding: 18px;
-  box-shadow: 0 -5px 20px rgba(0,0,0,0.15);
-  border-top-left-radius: 25px;
-  border-top-right-radius: 25px;
-  transition: 0.4s ease;
-  z-index: 9999;
+.addBtn:hover{
+  transform:scale(1.04);
 }
 
-.cartBar.active {
-  bottom: 0;
+.addBtn:active{
+  transform:scale(0.95);
 }
 
-.cartItems {
-  max-height: 120px;
-  overflow-y: auto;
-  font-size: 14px;
+/* ===== CART ===== */
+.cartBar{
+  position:fixed;
+  bottom:-100%;
+  left:0;
+  right:0;
+  background:white;
+  padding:18px;
+  box-shadow:0 -5px 25px rgba(0,0,0,0.15);
+  border-top-left-radius:25px;
+  border-top-right-radius:25px;
+  transition:0.4s;
 }
 
-.item {
-  display: flex;
-  justify-content: space-between;
-  margin: 8px 0;
+.cartBar.active{
+  bottom:0;
 }
 
-.controls button {
-  width: 28px;
-  height: 28px;
-  border: none;
-  border-radius: 8px;
-  background: #eee;
-  font-size: 18px;
+.cartItems{
+  max-height:130px;
+  overflow-y:auto;
+  font-size:14px;
 }
 
-.total {
-  font-size: 18px;
-  font-weight: bold;
-  margin-top: 10px;
+.item{
+  display:flex;
+  justify-content:space-between;
+  margin:8px 0;
 }
 
-.orderBtn {
-  width: 100%;
-  margin-top: 14px;
-  padding: 16px;
-  font-size: 18px;
-  border: none;
-  border-radius: 18px;
-  background: #00c853;
-  color: white;
-  animation: pulse 2s infinite;
+.controls button{
+  width:28px;
+  height:28px;
+  border:none;
+  border-radius:8px;
+  background:#eee;
+  font-size:18px;
+  cursor:pointer;
 }
 
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(0,200,83,0.5); }
-  70% { box-shadow: 0 0 0 12px rgba(0,200,83,0); }
-  100% { box-shadow: 0 0 0 0 rgba(0,200,83,0); }
+.total{
+  font-size:18px;
+  font-weight:bold;
+  margin-top:10px;
+}
+
+.orderBtn{
+  width:100%;
+  margin-top:14px;
+  padding:16px;
+  font-size:18px;
+  border:none;
+  border-radius:18px;
+  background:#00c853;
+  color:white;
+  cursor:pointer;
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(0,200,83,0.5);}
+  70%{box-shadow:0 0 0 12px rgba(0,200,83,0);}
+  100%{box-shadow:0 0 0 0 rgba(0,200,83,0);}
 }
 </style>
 </head>
@@ -144,8 +164,8 @@ body {
 
 <div class="topbar">
   <a href="../index.html">← Главная</a>
-  <div>Каталог 🛒</div>
-  <div id="count">0</div>
+  <div>Каталог</div>
+  <div class="count" id="count">0</div>
 </div>
 
 <div class="container">
@@ -189,303 +209,73 @@ body {
 </div>
 
 <script>
-let cart = {};
+let cart={};
 
-function add(name, price){
-  if(navigator.vibrate) navigator.vibrate(50);
-  cart[name] ? cart[name].q++ : cart[name]={p:price,q:1};
+function add(name,price){
+  if(navigator.vibrate) navigator.vibrate(40);
+  cart[name]?cart[name].q++:cart[name]={p:price,q:1};
   render();
 }
 
-function change(name, d){
-  cart[name].q += d;
-  if(cart[name].q <= 0) delete cart[name];
+function change(name,d){
+  cart[name].q+=d;
+  if(cart[name].q<=0) delete cart[name];
   render();
 }
 
 function render(){
-  let html = "";
-  let sum = 0;
-  let count = 0;
+  let html="";
+  let sum=0;
+  let count=0;
 
   for(let i in cart){
-    sum += cart[i].p * cart[i].q;
-    count += cart[i].q;
+    sum+=cart[i].p*cart[i].q;
+    count+=cart[i].q;
 
-    html += `
-      <div class="item">
-        ${i} × ${cart[i].q}
-        <div class="controls">
-          <button onclick="change('${i}',-1)">−</button>
-          <button onclick="change('${i}',1)">+</button>
-        </div>
+    html+=`
+    <div class="item">
+      ${i} × ${cart[i].q}
+      <div class="controls">
+        <button onclick="change('${i}',-1)">−</button>
+        <button onclick="change('${i}',1)">+</button>
       </div>
-    `;
+    </div>`;
   }
 
-  document.getElementById("cart").innerHTML =
-    html || "Корзина пустая 🛒";
+  document.getElementById("cart").innerHTML=
+  html||"Корзина пустая 🛒";
 
-  document.getElementById("total").innerText =
-    "Итого: " + sum + " тг";
+  document.getElementById("total").innerText=
+  "Итого: "+sum+" тг";
 
-  document.getElementById("count").innerText = count;
+  document.getElementById("count").innerText=count;
 
-  if(count > 0){
+  if(count>0){
     document.getElementById("cartBar").classList.add("active");
-  } else {
+  }else{
     document.getElementById("cartBar").classList.remove("active");
   }
 }
 
 function send(){
-  if(Object.keys(cart).length === 0){
+  if(Object.keys(cart).length===0){
     alert("Добавьте товары 😅");
     return;
   }
 
-  let msg = "Здравствуйте! Хочу заказать:%0A";
-  let sum = 0;
+  let msg="Здравствуйте! Хочу заказать:%0A";
+  let sum=0;
 
   for(let i in cart){
-    msg += `• ${i} × ${cart[i].q}%0A`;
-    sum += cart[i].p * cart[i].q;
+    msg+=`• ${i} × ${cart[i].q}%0A`;
+    sum+=cart[i].p*cart[i].q;
   }
 
-  msg += `%0AИтого: ${sum} тг`;
+  msg+=`%0AИтого: ${sum} тг`;
 
-  window.open("https://wa.me/77716093547?text=" + msg, "_blank");
+  window.open("https://wa.me/77716093547?text="+msg,"_blank");
 }
 </script>
 
 </body>
-</html>  margin-bottom: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.07);
-}
-
-.card h3 {
-  margin: 0;
-  font-size: 18px;
-}
-
-.card p {
-  margin: 5px 0;
-  color: gray;
-}
-
-.addBtn {
-  width: 100%;
-  margin-top: 10px;
-  padding: 14px;
-  font-size: 16px;
-  border: none;
-  border-radius: 15px;
-  background: #00c853;
-  color: white;
-}
-
-/* Нижняя корзина фикс */
-.cartBar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: white;
-  border-top: 2px solid #eee;
-  padding: 15px;
-  box-shadow: 0 -4px 15px rgba(0,0,0,0.08);
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-}
-
-.cartItems {
-  max-height: 120px;
-  overflow-y: auto;
-  font-size: 14px;
-}
-
-.item {
-  display: flex;
-  justify-content: space-between;
-  margin: 8px 0;
-}
-
-.controls button {
-  width: 28px;
-  height: 28px;
-  border: none;
-  border-radius: 8px;
-  background: #eee;
-  font-size: 18px;
-}
-
-.total {
-  font-size: 18px;
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-.orderBtn {
-  width: 100%;
-  margin-top: 12px;
-  padding: 15px;
-  font-size: 18px;
-  border: none;
-  border-radius: 18px;
-  background: #00c853;
-  color: white;
-}
-</style>
-</head>
-
-<body>
-
-<header>Каталог 🛒</header>
-
-<div class="container">
-
-  <!-- ТОВАРЫ -->
-  <div class="card">
-    <h3>Пиво “Немецкое”</h3>
-    <p>2 литра — 2000 тг</p>
-    <button class="addBtn" onclick="add('Пиво Немецкое 2л',2000)">
-      Добавить
-    </button>
-  </div>
-
-  <div class="card">
-    <h3>Донер с Фудбазы</h3>
-    <p>1500 тг</p>
-    <button class="addBtn" onclick="add('Донер Фудбаза',1500)">
-      Добавить
-    </button>
-  </div>
-
-  <div class="card">
-    <h3>Хот-дог со Сьешки</h3>
-    <p>1200 тг</p>
-    <button class="addBtn" onclick="add('Хот-дог Сьешка',1200)">
-      Добавить
-    </button>
-  </div>
-
-  <div class="card">
-    <h3>Maxi Чай</h3>
-    <p>2 литра — 1000 тг</p>
-    <button class="addBtn" onclick="add('Maxi Чай 2л',1000)">
-      Добавить
-    </button>
-  </div>
-
-  <div class="card">
-    <h3>Winston Caster</h3>
-    <p>1800 тг</p>
-    <button class="addBtn" onclick="add('Winston Caster',1800)">
-      Добавить
-    </button>
-  </div>
-
-</div>
-
-<!-- НИЖНЯЯ КОРЗИНА -->
-<div class="cartBar">
-  <div class="cartItems" id="cart"></div>
-
-  <div class="total" id="total">Итого: 0 тг</div>
-
-  <button class="orderBtn" onclick="send()">
-    Заказать в WhatsApp
-  </button>
-</div>
-
-<script>
-let cart = {};
-
-function add(name, price){
-  cart[name] ? cart[name].q++ : cart[name]={p:price,q:1};
-  render();
-}
-
-function change(name, d){
-  cart[name].q += d;
-  if(cart[name].q <= 0) delete cart[name];
-  render();
-}
-
-function render(){
-  let html = "";
-  let sum = 0;
-
-  for(let i in cart){
-    sum += cart[i].p * cart[i].q;
-
-    html += `
-      <div class="item">
-        ${i} × ${cart[i].q}
-        <div class="controls">
-          <button onclick="change('${i}',-1)">−</button>
-          <button onclick="change('${i}',1)">+</button>
-        </div>
-      </div>
-    `;
-  }
-
-  document.getElementById("cart").innerHTML =
-    html || "Корзина пустая 🛒";
-
-  document.getElementById("total").innerText =
-    "Итого: " + sum + " тг";
-}
-
-function send(){
-  if(Object.keys(cart).length === 0){
-    alert("Добавьте товары 😅");
-    return;
-  }
-
-  let msg = "Здравствуйте! Хочу заказать:%0A";
-  let sum = 0;
-
-  for(let i in cart){
-    msg += `• ${i} × ${cart[i].q}%0A`;
-    sum += cart[i].p * cart[i].q;
-  }
-
-  msg += `%0AИтого: ${sum} тг`;
-
-  window.open("https://wa.me/77716093547?text=" + msg, "_blank");
-}
-</script>
-
-</body>
-  <header style="
-  position: sticky;
-  top: 0;
-  background: #ffffff;
-  padding: 14px 12px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid #eee;
-  font-family: Arial, sans-serif;
-  z-index: 1000;
-">
-  <a href="../index.html" style="
-    text-decoration: none;
-    color: #00a082;
-    font-weight: bold;
-    font-size: 14px;
-  ">
-    ← Главная
-  </a>
-
-  <div style="
-    font-weight: bold;
-    font-size: 16px;
-  ">
-    🛒 Корзина
-  </div>
-
-  <div style="width: 60px;"></div>
-</header>
 </html>
