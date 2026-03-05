@@ -2,39 +2,254 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Доставка 24/7 Павлодар</title>
 
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
   <style>
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #f6f6f6, #e8f5e9);
-    text-align: center;
-  }
+    :root {
+      --primary: #00c853;
+      --primary-dark: #00a445;
+      --bg: #f8f9fa;
+      --text-dark: #1e272e;
+      --card-radius: 28px;
+    }
 
-  header {
-    background: linear-gradient(90deg, #00c853, #00e676);
-    padding: 25px;
-    color: white;
-    font-size: 26px;
-    font-weight: bold;
-    border-bottom-left-radius: 30px;
-    border-bottom-right-radius: 30px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-  }
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-  .box {
-    background: white;
-    margin: 40px 20px;
-    padding: 30px;
-    border-radius: 25px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    animation: fadeIn 1s ease forwards;
-    opacity: 0;
-    transform: translateY(30px);
-  }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text-dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
 
-  @keyframes fadeIn {
+    /* Анимированный фон (опционально) */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(circle at top right, #e8f5e9 0%, transparent 40%),
+                  radial-gradient(circle at bottom left, #e8f5e9 0%, transparent 40%);
+      z-index: -1;
+    }
+
+    header {
+      width: 100%;
+      max-width: 500px;
+      padding: 40px 20px;
+      text-align: center;
+      background: var(--primary);
+      color: white;
+      font-size: 28px;
+      font-weight: 800;
+      border-bottom-left-radius: 40px;
+      border-bottom-right-radius: 40px;
+      box-shadow: 0 10px 30px rgba(0, 200, 83, 0.2);
+      letter-spacing: -0.5px;
+    }
+
+    .main-container {
+      width: 100%;
+      max-width: 500px;
+      padding: 20px;
+    }
+
+    .box {
+      background: white;
+      padding: 30px 25px;
+      border-radius: var(--card-radius);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+      margin-top: -30px; /* Наложение на хедер */
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    h2 { font-weight: 800; font-size: 22px; margin-bottom: 10px; }
+    p { color: #7f8c8d; font-size: 16px; margin-bottom: 25px; }
+
+    /* Кнопки */
+    button {
+      width: 100%;
+      padding: 18px;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .whatsapp {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 8px 20px rgba(0, 200, 83, 0.25);
+    }
+
+    .catalog {
+      background: var(--text-dark);
+      color: white;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    .rules {
+      background: #f1f2f6;
+      color: #57606f;
+    }
+
+    button:active {
+      transform: scale(0.96);
+    }
+
+    /* Соцсети */
+    .social-box {
+      background: white;
+      margin-top: 20px;
+      padding: 25px;
+      border-radius: var(--card-radius);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s forwards;
+    }
+
+    .icon-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-top: 20px;
+    }
+
+    .icon-wrapper a {
+      transition: transform 0.3s ease;
+    }
+
+    .icon-wrapper img {
+      width: 48px;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.1));
+    }
+
+    .icon-wrapper a:active { transform: scale(1.2); }
+
+    .direct-links {
+      margin-top: 25px;
+      border-top: 1px solid #f1f2f6;
+      padding-top: 20px;
+    }
+
+    .direct-links a {
+      display: block;
+      margin: 10px 0;
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    footer {
+      padding: 40px 20px;
+      font-size: 13px;
+      color: #bdc3c7;
+      letter-spacing: 1px;
+    }
+
+    /* Анимации */
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Анимация иконки ракеты */
+    .rocket {
+      display: inline-block;
+      animation: rocketMove 2s infinite ease-in-out;
+    }
+
+    @keyframes rocketMove {
+      0%, 100% { transform: translateY(0) rotate(0); }
+      50% { transform: translateY(-5px) rotate(5deg); }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  Pavlodar24 <span class="rocket">🚀</span>
+</header>
+
+<div class="main-container">
+  <div class="box">
+    <h2>Заказывай доставку за 2 минуты</h2>
+    <p>Продукты • Еда • Напитки • Аптека</p>
+
+    <button class="whatsapp" onclick="window.open('https://wa.me/77716093547','_blank')">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="20" style="filter: brightness(0) invert(1);">
+      Написать в WhatsApp
+    </button>
+
+    <button class="catalog" onclick="location.href='catalog/index.html'">
+      Открыть каталог
+    </button>
+
+    <button class="rules" onclick="location.href='rules/index.html'">
+      Правила сервиса
+    </button>
+  </div>
+
+  <div class="social-box">
+    <h3 style="margin:0; font-size: 18px;">Мы онлайн 24/7</h3>
+    
+    <div class="icon-wrapper">
+      <a href="https://instagram.com/dostavka.pavlodar" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
+      </a>
+      <a href="https://wa.me/77716093547" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
+      </a>
+      <a href="https://2gis.kz" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/888/888879.png" alt="2GIS">
+      </a>
+    </div>
+
+    <div class="direct-links">
+      <a href="https://wa.me/77716093547">Перейти в чат WhatsApp →</a>
+      <a href="https://instagram.com/dostavka.pavlodar">Зайти в Instagram →</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  © 2026 DOSTAVKA PAVLODAR24 🚀
+</footer>
+
+<script>
+  // Добавим немного вибрации на кнопки для мобильных устройств (если поддерживается)
+  document.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (window.navigator.vibrate) {
+        window.navigator.vibrate(20);
+      }
+    });
+  });
+</script>
+
+</body>
+</html>  @keyframes fadeIn {
     to {
       opacity: 1;
       transform: translateY(0);
