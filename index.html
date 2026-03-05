@@ -8,17 +8,37 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
   <style>
+    /* Переменные для светлой темы (по умолчанию) */
     :root {
       --primary: #00c853;
       --primary-dark: #00a445;
       --bg: #f8f9fa;
-      --text-dark: #1e272e;
+      --text-main: #1e272e;
+      --text-secondary: #7f8c8d;
+      --card-bg: #ffffff;
       --card-radius: 28px;
+      --shadow: rgba(0, 0, 0, 0.05);
+      --btn-rules: #f1f2f6;
+      --btn-rules-text: #57606f;
+      --footer-text: #bdc3c7;
+    }
+
+    /* Переменные для темной темы */
+    [data-theme="dark"] {
+      --bg: #121212;
+      --text-main: #ffffff;
+      --text-secondary: #a0a0a0;
+      --card-bg: #1e1e1e;
+      --shadow: rgba(0, 0, 0, 0.4);
+      --btn-rules: #2c2c2e;
+      --btn-rules-text: #d1d1d6;
+      --footer-text: #48484a;
     }
 
     * {
       box-sizing: border-box;
       -webkit-tap-highlight-color: transparent;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     body {
@@ -26,15 +46,254 @@
       padding: 0;
       font-family: 'Inter', sans-serif;
       background: var(--bg);
-      color: var(--text-dark);
+      color: var(--text-main);
       display: flex;
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
     }
 
-    /* Анимированный фон (опционально) */
-    body::before {
+    /* Кнопка переключения темы */
+    .theme-toggle {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      z-index: 2000;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    header {
+      width: 100%;
+      max-width: 500px;
+      padding: 50px 20px;
+      text-align: center;
+      background: var(--primary);
+      color: white;
+      font-size: 28px;
+      font-weight: 800;
+      border-bottom-left-radius: 40px;
+      border-bottom-right-radius: 40px;
+      box-shadow: 0 10px 30px rgba(0, 200, 83, 0.2);
+      letter-spacing: -0.5px;
+    }
+
+    .main-container {
+      width: 100%;
+      max-width: 500px;
+      padding: 20px;
+    }
+
+    .box {
+      background: var(--card-bg);
+      padding: 30px 25px;
+      border-radius: var(--card-radius);
+      box-shadow: 0 15px 35px var(--shadow);
+      margin-top: -30px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    h2 { font-weight: 800; font-size: 22px; margin-bottom: 10px; }
+    p { color: var(--text-secondary); font-size: 16px; margin-bottom: 25px; }
+
+    button {
+      width: 100%;
+      padding: 18px;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .whatsapp {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 8px 20px rgba(0, 200, 83, 0.25);
+    }
+
+    .catalog {
+      background: var(--text-main);
+      color: var(--card-bg); /* Инверсия цвета */
+      box-shadow: 0 8px 20px var(--shadow);
+    }
+
+    .rules {
+      background: var(--btn-rules);
+      color: var(--btn-rules-text);
+    }
+
+    button:active { transform: scale(0.96); }
+
+    .social-box {
+      background: var(--card-bg);
+      margin-top: 20px;
+      padding: 25px;
+      border-radius: var(--card-radius);
+      box-shadow: 0 10px 30px var(--shadow);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s forwards;
+    }
+
+    .icon-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-top: 20px;
+    }
+
+    .icon-wrapper img {
+      width: 48px;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.1));
+    }
+
+    /* Инверсия иконок в темной теме для лучшей видимости */
+    [data-theme="dark"] .icon-wrapper img {
+        filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3)) brightness(0.9);
+    }
+
+    .direct-links {
+      margin-top: 25px;
+      border-top: 1px solid var(--btn-rules);
+      padding-top: 20px;
+    }
+
+    .direct-links a {
+      display: block;
+      margin: 10px 0;
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    footer {
+      padding: 40px 20px;
+      font-size: 13px;
+      color: var(--footer-text);
+      letter-spacing: 1px;
+    }
+
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .rocket {
+      display: inline-block;
+      animation: rocketMove 2s infinite ease-in-out;
+    }
+
+    @keyframes rocketMove {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+  </style>
+</head>
+
+<body>
+
+<button class="theme-toggle" id="theme-btn" title="Сменить тему">
+  <span id="theme-icon">🌙</span>
+</button>
+
+<header>
+  Pavlodar24 <span class="rocket">🚀</span>
+</header>
+
+<div class="main-container">
+  <div class="box">
+    <h2>Заказывай доставку за 2 минуты</h2>
+    <p>Продукты • Еда • Напитки • Аптека</p>
+
+    <button class="whatsapp" onclick="window.open('https://wa.me/77716093547','_blank')">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="20" style="filter: brightness(0) invert(1);">
+      Написать в WhatsApp
+    </button>
+
+    <button class="catalog" onclick="location.href='catalog/index.html'">
+      Открыть каталог
+    </button>
+
+    <button class="rules" onclick="location.href='rules/index.html'">
+      Правила сервиса
+    </button>
+  </div>
+
+  <div class="social-box">
+    <h3 style="margin:0; font-size: 18px;">Мы онлайн 24/7</h3>
+    
+    <div class="icon-wrapper">
+      <a href="https://instagram.com/dostavka.pavlodar" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
+      </a>
+      <a href="https://wa.me/77716093547" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
+      </a>
+      <a href="https://2gis.kz" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/888/888879.png" alt="2GIS">
+      </a>
+    </div>
+
+    <div class="direct-links">
+      <a href="https://wa.me/77716093547">Перейти в чат WhatsApp →</a>
+      <a href="https://instagram.com/dostavka.pavlodar">Зайти в Instagram →</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  © 2026 DOSTAVKA PAVLODAR24 🚀
+</footer>
+
+<script>
+  const themeBtn = document.getElementById('theme-btn');
+  const themeIcon = document.getElementById('theme-icon');
+  const currentTheme = localStorage.getItem('theme');
+
+  // Проверка сохраненной темы
+  if (currentTheme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    themeIcon.textContent = '☀️';
+  }
+
+  themeBtn.addEventListener('click', () => {
+    let theme = document.documentElement.getAttribute('data-theme');
+    
+    if (theme === 'dark') {
+      document.documentElement.removeAttribute('data-theme');
+      themeIcon.textContent = '🌙';
+      localStorage.setItem('theme', 'light');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeIcon.textContent = '☀️';
+      localStorage.setItem('theme', 'dark');
+    }
+    
+    // Легкая вибрация при переключении
+    if (window.navigator.vibrate) window.navigator.vibrate(30);
+  });
+</script>
+
+</body>
+</html>    body::before {
       content: "";
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
