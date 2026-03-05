@@ -11,9 +11,8 @@
   --card-bg: #fff;
   --text-main: #1e272e;
   --text-gray: #7f8c8d;
-  --header-bg: #
+  --header-bg: #222;
   --header-text: #fff;
-  --car-color: #ffeb3b; /* желтый */
 }
 
 [data-theme="dark"] {
@@ -23,7 +22,6 @@
   --text-gray: #aaa;
   --header-bg: #111;
   --header-text: #fff;
-  --car-color: #ffeb3b; /* желтый */
 }
 
 body {
@@ -57,94 +55,34 @@ body {
 
 /* Header */
 header {
-  width:100%; max-width:500px
-  height:200px;
-  position: relative;
+  width:100%;
+  max-width:500px;
+  height:120px;
   background: var(--header-bg);
-  border-bottom-left-radius:40px;
-  border-bottom-right-radius:40px;
-  overflow:hidden;
+  border-bottom-left-radius:30px;
+  border-bottom-right-radius:30px;
   display:flex;
   justify-content:center;
-  align-items:flex-start;
+  align-items:center;
   text-align:center;
-  flex-direction:column;
-  padding-top:20px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.1);
 }
 
 .header-text {
-  font-size:28px;
+  font-size:26px;
   font-weight:800;
   color: var(--header-text);
-  z-index:2;
-  position: relative;
-  margin-bottom:20px;
-}
-
-/* Очертания города */
-.city-skyline {
-  position:absolute;
-  top:0; left:0;
-  width:100%; height:100%;
-  fill: #444;
-  opacity:0.3;
-  pointer-events:none;
-}
-
-/* Машина */
-.car {
-  position:absolute;
-  bottom:20px;
-  left:-150px; 
-  width:120px;
-  height:50px;
-  background: var(--car-color);
-  border-radius:15px;
-  animation: drive 6s linear infinite;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:5px;
-  box-sizing:border-box;
-  box-shadow:0 5px 8px rgba(0,0,0,0.3);
-}
-
-/* Фары */
-.car::before {
-  content:'';
-  position:absolute;
-  top:15px;
-  right:-10px;
-  width:12px;
-  height:12px;
-  background: yellow;
-  border-radius:50%;
-  box-shadow: -35px 0 yellow;
-}
-
-/* Колёса */
-.car .wheel {
-  width:20px;
-  height:20px;
-  background:black;
-  border-radius:50%;
-  animation: spin 0.5s linear infinite;
-}
-
-/* Движение слева направо */
-@keyframes drive {
-  0% { left:-150px; }
-  100% { left:100%; }
-}
-
-/* Вращение колёс */
-@keyframes spin {
-  0% { transform: rotate(0deg);}
-  100% { transform: rotate(360deg);}
+  text-align:center;
+  padding:0 15px;
 }
 
 /* Контент */
-.main-container { width:100%; max-width:500px; padding:20px; margin-top:-35px; }
+.main-container { 
+  width:100%; 
+  max-width:500px; 
+  padding:20px; 
+  margin-top:20px; 
+}
 
 .box {
   background: var(--card-bg);
@@ -188,18 +126,7 @@ footer { padding:30px; text-align:center; font-size:13px; color:var(--text-gray)
 </div>
 
 <header>
-  <!-- Очертания города -->
-  <svg class="city-skyline" viewBox="0 0 500 200" preserveAspectRatio="xMidYMax meet">
-    <polygon points="0,150 20,120 40,150 60,100 80,150 100,130 120,150 140,90 160,150 180,110 200,150 220,100 240,150 260,120 280,150 300,90 320,150 340,110 360,150 380,120 400,150 420,100 440,150 460,130 480,150 500,100 500,200 0,200"/>
-  </svg>
-
   <span class="header-text">Доставка 24/7 Павлодар</span>
-
-  <!-- Автомобиль -->
-  <div class="car">
-    <div class="wheel"></div>
-    <div class="wheel"></div>
-  </div>
 </header>
 
 <div class="main-container">
