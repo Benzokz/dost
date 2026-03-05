@@ -2,49 +2,88 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Продукты — Pavlodar24</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Напитки — Pavlodar24</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-:root { --primary:#00c853; --card-shadow:0 10px 30px rgba(0,0,0,0.08); }
-body { margin:0; font-family:sans-serif; background:#f0f2f5; }
-.topbar { padding:15px; display:flex; justify-content:space-between; background:#fff; box-shadow:0 2px 10px rgba(0,0,0,0.1); }
-.topbar a { text-decoration:none; color:#00c853; font-weight:700; }
-.container { max-width:500px; margin:20px auto; padding:0 15px; }
-.card { background:#fff; padding:20px; margin-bottom:15px; border-radius:18px; box-shadow:var(--card-shadow); }
-.card h3 { margin:0 0 8px 0; }
-.card p { margin:0 0 12px 0; color:#7f8c8d; }
-.price { color:var(--primary); font-weight:700; }
-.addBtn { width:100%; padding:12px; border:none; border-radius:12px; background:var(--primary); color:#fff; font-weight:700; cursor:pointer; }
-.cart { position:fixed; bottom:0; left:0; right:0; background:#fff; max-height:0; overflow:hidden; transition:0.3s; box-shadow:0 -5px 20px rgba(0,0,0,0.1); border-radius:20px 20px 0 0; padding:0 20px; }
-.cart.active { max-height:300px; padding:20px; }
-.item { display:flex; justify-content:space-between; margin-bottom:12px; }
+:root { 
+    --primary: #00c853; 
+    --bg: #f0f2f5;
+    --card-bg: #ffffff;
+    --text: #1e272e;
+    --card-shadow: 0 10px 30px rgba(0,0,0,0.08); 
+}
+
+[data-theme="dark"] {
+    --bg: #121212;
+    --card-bg: #1e1e1e;
+    --text: #ffffff;
+    --card-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+body { margin:0; font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); transition: 0.3s; }
+
+.topbar { 
+    padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;
+    background: var(--card-bg); box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+    position: sticky; top: 0; z-index: 100;
+}
+.topbar a { text-decoration: none; color: var(--primary); font-weight: 700; cursor: pointer; }
+
+.container { max-width: 500px; margin: 20px auto; padding: 0 15px; padding-bottom: 110px; }
+
+.card { 
+    background: var(--card-bg); padding: 20px; margin-bottom: 15px; 
+    border-radius: 25px; box-shadow: var(--card-shadow); 
+}
+.card h3 { margin: 0 0 8px 0; font-weight: 800; }
+.card p { margin: 0 0 12px 0; color: #7f8c8d; font-size: 14px; }
+
+.price-row { display: flex; justify-content: space-between; align-items: center; }
+.price { color: var(--primary); font-weight: 800; font-size: 18px; }
+
+.addBtn { 
+    padding: 12px 22px; border: none; border-radius: 15px; 
+    background: var(--primary); color: #fff; font-weight: 700; cursor: pointer;
+}
+.addBtn:active { transform: scale(0.92); }
+
+/* ПЛАВАЮЩАЯ КНОПКА КОРЗИНЫ */
+.cart-float {
+    position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
+    width: 90%; max-width: 420px; background: #1e272e; color: white;
+    padding: 20px; border-radius: 22px; display: none;
+    justify-content: space-between; align-items: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4); z-index: 1000;
+    text-decoration: none;
+    animation: slideUp 0.4s ease;
+}
+@keyframes slideUp { from { bottom: -100px; } to { bottom: 25px; } }
 </style>
 </head>
 <body>
 
 <div class="topbar">
-  <a href="../index.html">← Назад</a>
-  <div>Напитки</div>
-  <div id="count">0</div>
+  <a onclick="history.back()">← Назад</a>
+  <div style="font-weight:800;">Напитки 🥤</div>
+  <div id="count-badge" style="background:var(--primary); color:white; padding:2px 10px; border-radius:12px; font-size:12px; font-weight:800;">0</div>
 </div>
 
 <div class="container" id="product-list"></div>
 
-<div class="cart" id="cartBar">
-  <h3>Корзина</h3>
-  <div id="cart"></div>
-  <div id="total">Итого: 0 тг</div>
-  <button onclick="sendOrder()">Оформить заказ в WhatsApp</button>
-</div>
+<a href="../../cart.html" class="cart-float" id="cartBar">
+  <span>🛒 В заказе: <b id="float-count">0</b></span>
+  <span style="color:var(--primary); font-weight:800;">Оформить →</span>
+</a>
 
 <script>
+// Список напитков
 const products = [
-  { id:1, name:"Gorilla", price:150, desc:"Litenergy" },
-  { id:2, name:"Holiday", price:250, desc:"1 литр" },
-  { id:3, name:"Coca-Cola", price:400, desc:"2 литр" }
+  { id: 'nap1', name: "Coca-Cola", price: 450, desc: "Классическая, 0.5л" },
+  { id: 'nap2', name: "Вода ASU", price: 200, desc: "Без газа, 0.5л" },
+  { id: 'nap3', name: "Сок Gracio", price: 850, desc: "Яблоко, 1л" },
+  { id: 'nap4', name: "Чай Пиала", price: 350, desc: "Холодный чай, 0.5л" }
 ];
-
-let cart = {};
 
 function init() {
   const list = document.getElementById('product-list');
@@ -52,42 +91,46 @@ function init() {
     <div class="card">
       <h3>${p.name}</h3>
       <p>${p.desc}</p>
-      <div class="price">${p.price} тг</div>
-      <button class="addBtn" onclick="addToCart(${p.id})">В корзину</button>
+      <div class="price-row">
+        <div class="price">${p.price} ₸</div>
+        <button class="addBtn" onclick="addToCart('${p.id}', '${p.name}', ${p.price})">В корзину</button>
+      </div>
     </div>
   `).join('');
+  updateUI();
 }
 
-function addToCart(id) {
-  const p = products.find(x=>x.id===id);
-  if(cart[id]) cart[id].q++;
-  else cart[id]={...p, q:1};
-  renderCart();
+function addToCart(id, name, price) {
+  let cart = JSON.parse(localStorage.getItem('pvl_cart')) || [];
+  cart.push({ id, name, price });
+  localStorage.setItem('pvl_cart', JSON.stringify(cart));
+  
+  if (navigator.vibrate) navigator.vibrate(40);
+  updateUI();
 }
 
-function renderCart() {
-  const cartDiv = document.getElementById('cart');
-  let html="", total=0, count=0;
-  for(let id in cart){
-    html+=`<div class="item">${cart[id].name} x ${cart[id].q} — ${cart[id].price*cart[id].q} тг</div>`;
-    total+=cart[id].price*cart[id].q;
-    count+=cart[id].q;
+function updateUI() {
+  const cart = JSON.parse(localStorage.getItem('pvl_cart')) || [];
+  const countBadge = document.getElementById('count-badge');
+  const cartBar = document.getElementById('cartBar');
+  const floatCount = document.getElementById('float-count');
+
+  countBadge.innerText = cart.length;
+  floatCount.innerText = cart.length;
+
+  if (cart.length > 0) {
+    cartBar.style.display = 'flex';
+  } else {
+    cartBar.style.display = 'none';
   }
-  cartDiv.innerHTML = html || "<div>Корзина пуста</div>";
-  document.getElementById("total").innerText="Итого: "+total+" тг";
-  document.getElementById("count").innerText=count;
-  document.getElementById("cartBar").classList.toggle("active", count>0);
 }
 
-function sendOrder() {
-  if(Object.keys(cart).length===0){ alert("Корзина пуста"); return; }
-  let msg="Новый заказ:\n";
-  for(let id in cart){ msg+=`• ${cart[id].name} — ${cart[id].q} шт.\n`; }
-  window.open(`https://wa.me/77716093547?text=${encodeURIComponent(msg)}`, "_blank");
+// Тема
+if (localStorage.getItem('pavlodar-theme') === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
 }
 
 init();
 </script>
-
 </body>
 </html>
